@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  progress  Progress?
+}
+
+model DailyPlan {
+  id        Int        @id @default(autoincrement())
+  date      String     @unique // YYYY-MM-DD format
+  cycleCode Int
+  targetXp  Int
+  createdAt DateTime   @default(now())
+  tasks     DailyTask[]
+}
+
+model DailyTask {
+  id           Int       @id @default(autoincrement())
+  dailyPlanId  Int
+  dailyPlan    DailyPlan @relation(fields: [dailyPlanId], references: [id], onDelete: Cascade)
+  type         String    // KNOWLEDGE | DRILL_JS | DRILL_TS | INTERVIEW
+  title        String
+  prompt       String
+  xp           Int
+  status       String    @default("TODO") // TODO | DONE
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+}
+
+model XpLog {
+  id        Int      @id @default(autoincrement())
+  date      String   // YYYY-MM-DD format
+  amount    Int
+  reason    String
+  createdAt DateTime @default(now())
+}
+
+model Progress {
+  userId            Int      @id @default(1) @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalXp           Int      @default(0)
+  rank              String   @default("Mizunoto")
+  currentCycleCode  Int      @default(1)
+  streak            Int      @default(0)
+  lastCompletedDate String?  // YYYY-MM-DD format
+}
+
+model MockRound {
+  id          Int      @id @default(autoincrement())
+  date        String   // YYYY-MM-DD format
+  durationMin Int
+  mode        String   // TIMED | UNTIMED
+  score       Int      // 0-10
+  notes       String?
+  createdAt   DateTime @default(now())
+}

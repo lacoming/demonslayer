@@ -1,0 +1,74 @@
+[
+  {
+    "code": 0,
+    "title": "Упаковка и рынок",
+    "description": "Резюме, метод STAR, стратегии поиска работы",
+    "themes": ["Оптимизация резюме", "Метод STAR", "Поиск работы", "Нетворкинг"]
+  },
+  {
+    "code": 1,
+    "title": "JavaScript Core",
+    "description": "Фундаментальные концепции и внутреннее устройство JavaScript",
+    "themes": ["Scope/hoisting/TDZ", "this binding", "Замыкания", "Event loop", "Promises", "Сборка мусора", "Клонирование объектов", "Map/Set", "Observers", "AbortController", "reduce()", "Каррирование"]
+  },
+  {
+    "code": 2,
+    "title": "TypeScript",
+    "description": "Система типов TypeScript и продвинутые возможности",
+    "themes": ["type vs interface", "any/unknown/never", "Generics", "extends", "keyof/typeof", "Utility types", "Enums"]
+  },
+  {
+    "code": 3,
+    "title": "Vue 3 Internals",
+    "description": "Реактивность Vue 3 и система компонентов",
+    "themes": ["ref/reactive", "computed caching", "watch vs watchEffect", "destructuring/toRefs", "key/v-for", "v-if/v-show"]
+  },
+  {
+    "code": 4,
+    "title": "Nuxt & SSR",
+    "description": "Server-side rendering с Nuxt",
+    "themes": ["SSR lifecycle", "Hydration mismatch", "Payload", "useAsyncData/useFetch vs $fetch", "Boundaries", "When NOT to SSR"]
+  },
+  {
+    "code": 5,
+    "title": "React Core & Internals",
+    "description": "Основы React и внутренние механизмы",
+    "themes": ["Render cycle", "Reconciliation", "Причины ререндера", "Hooks", "useEffect vs useLayoutEffect", "memo pitfalls", "Ограничения Context", "lazy/suspense", "Fiber", "React 18/19", "Error Boundary"]
+  },
+  {
+    "code": 6,
+    "title": "State & Data Fetching",
+    "description": "Управление состоянием и паттерны получения данных",
+    "themes": ["React Query", "Server vs client state", "Кэширование", "Инвалидация", "Waterfalls", "Повторы/ошибки"]
+  },
+  {
+    "code": 7,
+    "title": "Performance",
+    "description": "Оптимизация производительности веб-приложений",
+    "themes": ["FCP/LCP/CLS", "Lighthouse", "DevTools", "Code splitting/lazy loading", "Стоимость гидратации"]
+  },
+  {
+    "code": 8,
+    "title": "Forms & Validation",
+    "description": "Обработка форм и стратегии валидации",
+    "themes": ["React Hook Form", "Controlled/uncontrolled", "zod/yup", "Клиентская vs серверная валидация"]
+  },
+  {
+    "code": 9,
+    "title": "Frontend Architecture",
+    "description": "Паттерны масштабируемой фронтенд-архитектуры",
+    "themes": ["Слои", "Services/hooks/api", "Ошибки/загрузка/повтор", "Нормализация"]
+  },
+  {
+    "code": 10,
+    "title": "Инженерное мышление",
+    "description": "Проектирование систем и инженерные принципы",
+    "themes": ["Компромиссы", "Почему решения важны", "Риски", "Масштабирование в 10 раз", "Отладка в продакшене"]
+  },
+  {
+    "code": 11,
+    "title": "Симуляции интервью",
+    "description": "Пробные интервью и обратная связь",
+    "themes": ["Пробные раунды", "Обратная связь", "Сравнения Vue↔React"]
+  }
+]

@@ -1,0 +1,186 @@
+[
+  {
+    "id": "knowledge-1",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "title": "Изучить замыкания JavaScript",
+    "prompt": "Прочитайте о замыканиях, лексической области видимости и типичных случаях использования. Напишите резюме о том, как работают замыкания и когда они полезны.",
+    "xp": 20
+  },
+  {
+    "id": "knowledge-2",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "title": "Изучить Event Loop",
+    "prompt": "Глубокое погружение в event loop JavaScript, микро-задачи vs макро-задачи. Объясните порядок выполнения с примерами.",
+    "xp": 20
+  },
+  {
+    "id": "knowledge-3",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "title": "Изучить Promises и Async/Await",
+    "prompt": "Повторите Promise API, синтаксис async/await, обработку ошибок и методы Promise (all, race, allSettled).",
+    "xp": 20
+  },
+  {
+    "id": "knowledge-4",
+    "type": "KNOWLEDGE",
+    "cycleCode": 2,
+    "title": "Изучить Generics в TypeScript",
+    "prompt": "Изучите generics, параметры типа, ограничения с extends и параметры типа по умолчанию.",
+    "xp": 20
+  },
+  {
+    "id": "knowledge-5",
+    "type": "KNOWLEDGE",
+    "cycleCode": 2,
+    "title": "Изучить Type vs Interface",
+    "prompt": "Поймите, когда использовать type vs interface, объединение объявлений и паттерны композиции типов.",
+    "xp": 20
+  },
+  {
+    "id": "knowledge-6",
+    "type": "KNOWLEDGE",
+    "cycleCode": 5,
+    "title": "Изучить React Hooks",
+    "prompt": "Повторите все React hooks: useState, useEffect, useContext, useMemo, useCallback, useRef и кастомные hooks.",
+    "xp": 20
+  },
+  {
+    "id": "knowledge-7",
+    "type": "KNOWLEDGE",
+    "cycleCode": 5,
+    "title": "Изучить React Fiber",
+    "prompt": "Изучите архитектуру React Fiber, reconciliation и как React планирует обновления.",
+    "xp": 20
+  },
+  {
+    "id": "drill-js-1",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика методов массивов",
+    "prompt": "Напишите код, используя map, filter, reduce, find, some, every. Решите 3 задачи, используя эти методы.",
+    "xp": 15
+  },
+  {
+    "id": "drill-js-2",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика замыканий",
+    "prompt": "Создайте 3 примера замыканий: счётчик, мемоизация и модульный паттерн.",
+    "xp": 15
+  },
+  {
+    "id": "drill-js-3",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика Promises",
+    "prompt": "Напишите асинхронные функции, используя Promise.all, Promise.race и правильно обрабатывайте ошибки.",
+    "xp": 15
+  },
+  {
+    "id": "drill-js-4",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика привязки this",
+    "prompt": "Напишите примеры, демонстрирующие this в разных контекстах и использование bind/call/apply.",
+    "xp": 15
+  },
+  {
+    "id": "drill-ts-1",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика определений типов",
+    "prompt": "Создайте определения типов для объекта User, ответа API и сигнатур функций.",
+    "xp": 15
+  },
+  {
+    "id": "drill-ts-2",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика Generics",
+    "prompt": "Напишите generic-функции для identity, map, filter с правильными ограничениями типов.",
+    "xp": 15
+  },
+  {
+    "id": "drill-ts-3",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика Utility Types",
+    "prompt": "Используйте Partial, Required, Pick, Omit, Record для преобразования типов в 3 примерах.",
+    "xp": 15
+  },
+  {
+    "id": "drill-ts-4",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика Type Guards",
+    "prompt": "Напишите функции type guard, используя typeof, instanceof и дискриминированные объединения.",
+    "xp": 15
+  },
+  {
+    "id": "interview-1-1",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Замыкания",
+    "prompt": "Объясните замыкания интервьюеру. Покройте лексическую область видимости, случаи использования и потенциальные проблемы.",
+    "xp": 25
+  },
+  {
+    "id": "interview-1-2",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Event Loop",
+    "prompt": "Объясните event loop, микро-задачи vs макро-задачи и порядок выполнения с примерами.",
+    "xp": 25
+  },
+  {
+    "id": "interview-1-3",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Promises",
+    "prompt": "Сравните Promise и async/await. Объясните Promise.all, race, allSettled с примерами использования.",
+    "xp": 25
+  },
+  {
+    "id": "interview-2-1",
+    "type": "INTERVIEW",
+    "cycleCode": 2,
+    "title": "Интервью: Type vs Interface",
+    "prompt": "Объясните, когда использовать type vs interface, объединение объявлений и композицию типов.",
+    "xp": 25
+  },
+  {
+    "id": "interview-2-2",
+    "type": "INTERVIEW",
+    "cycleCode": 2,
+    "title": "Интервью: Generics",
+    "prompt": "Объясните generics в TypeScript, ограничения и приведите практические примеры.",
+    "xp": 25
+  },
+  {
+    "id": "interview-5-1",
+    "type": "INTERVIEW",
+    "cycleCode": 5,
+    "title": "Интервью: React Hooks",
+    "prompt": "Объясните useState, useEffect, useMemo, useCallback. Когда использовать каждый и типичные подводные камни.",
+    "xp": 25
+  },
+  {
+    "id": "interview-5-2",
+    "type": "INTERVIEW",
+    "cycleCode": 5,
+    "title": "Интервью: Производительность React",
+    "prompt": "Объясните React.memo, useMemo, useCallback и когда они помогают или не помогают производительности.",
+    "xp": 25
+  },
+  {
+    "id": "interview-5-3",
+    "type": "INTERVIEW",
+    "cycleCode": 5,
+    "title": "Интервью: React Fiber",
+    "prompt": "Объясните архитектуру React Fiber, reconciliation и как React планирует обновления.",
+    "xp": 25
+  }
+]
