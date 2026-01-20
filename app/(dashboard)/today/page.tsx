@@ -5,9 +5,10 @@ import { XpProgress } from "@/components/shared/xp-progress"
 import { Badge } from "@/components/ui/badge"
 import { prisma } from "@/lib/prisma"
 import { getRankFromXp, getTodayDateString } from "@/lib/game"
-import { CompleteTaskButton } from "@/components/today/complete-task-button"
+import { StartTaskButton } from "@/components/today/start-task-button"
+import Link from "next/link"
 import { GeneratePlanButton } from "@/components/today/generate-plan-button"
-import { CheckCircle2, Circle } from "lucide-react"
+import { CheckCircle2, Circle, PlayCircle } from "lucide-react"
 
 async function getTodayData() {
   const today = getTodayDateString()
@@ -42,9 +43,7 @@ async function getTodayData() {
     )
   }
 
-  const completedXp = plan
-    ? plan.tasks.filter((t) => t.status === "DONE").reduce((sum, t) => sum + t.xp, 0)
-    : 0
+  const completedXp = plan?.completedXp || 0
 
   return {
     progress: { ...progress, rank },
@@ -98,9 +97,9 @@ export default async function TodayPage() {
       <div className="container mx-auto px-4 py-8 space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Today's Training</h1>
+            <h1 className="text-3xl font-bold">Тренировка на сегодня</h1>
             <p className="text-muted-foreground mt-1">
-              Complete your daily plan to maintain your streak
+              Выполните ежедневный план, чтобы сохранить серию
             </p>
           </div>
           {!plan && <GeneratePlanButton />}
@@ -116,7 +115,7 @@ export default async function TodayPage() {
                 <XpProgress current={completedXp} target={plan.targetXp} />
                 {progress.streak > 0 && (
                   <div className="mt-4 text-sm text-muted-foreground">
-                    Streak bonus: +{Math.floor((progress.streak / 3) * 5)}% XP
+                    Бонус серии: +{Math.floor((progress.streak / 3) * 5)}% ОП
                   </div>
                 )}
               </CardContent>
@@ -135,6 +134,8 @@ export default async function TodayPage() {
                           </Badge>
                           {task.status === "DONE" ? (
                             <CheckCircle2 className="h-5 w-5 text-green-500" />
+                          ) : task.status === "IN_PROGRESS" ? (
+                            <PlayCircle className="h-5 w-5 text-blue-500" />
                           ) : (
                             <Circle className="h-5 w-5 text-muted-foreground" />
                           )}
@@ -154,10 +155,16 @@ export default async function TodayPage() {
                   </CardHeader>
                   <CardContent>
                     {task.status === "TODO" ? (
-                      <CompleteTaskButton taskId={task.id} />
+                      <StartTaskButton taskId={task.id} />
+                    ) : task.status === "IN_PROGRESS" ? (
+                      <Link href={`/today/tasks/${task.id}`}>
+                        <Button variant="default" className="bg-blue-600 hover:bg-blue-700">
+                          Продолжить
+                        </Button>
+                      </Link>
                     ) : (
                       <div className="text-sm text-green-500">
-                        Completed {task.completedAt?.toLocaleDateString()}
+                        Завершено {task.completedAt?.toLocaleDateString()}
                       </div>
                     )}
                   </CardContent>

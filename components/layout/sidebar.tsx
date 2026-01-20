@@ -16,7 +16,7 @@ import {
 const navItems = [
   { href: "/", label: "Панель управления", icon: LayoutDashboard },
   { href: "/today", label: "Сегодня", icon: Calendar },
-  { href: "/cycles", label: "Циклы", icon: BookOpen },
+  { href: "/cycles", label: "Отслеживание прогресса", icon: BookOpen },
   { href: "/sparring", label: "Спарринг", icon: Swords },
   { href: "/mock", label: "Пробное интервью", icon: Clock },
   { href: "/final-battle", label: "Финальная битва", icon: Trophy },

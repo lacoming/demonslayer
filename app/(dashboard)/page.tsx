@@ -84,8 +84,8 @@ export default async function DashboardPage() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Card>
             <CardHeader>
-              <CardTitle>Current Rank</CardTitle>
-              <CardDescription>Your progress in the Demon Slayer Corps</CardDescription>
+              <CardTitle>Текущий ранг</CardTitle>
+              <CardDescription>Ваш прогресс в корпусе истребителей демонов</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
@@ -100,8 +100,8 @@ export default async function DashboardPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Today's Progress</CardTitle>
-              <CardDescription>Your daily training goals</CardDescription>
+              <CardTitle>Прогресс за сегодня</CardTitle>
+              <CardDescription>Ваши ежедневные цели тренировок</CardDescription>
             </CardHeader>
             <CardContent>
               <XpProgress current={progress.todayXp} target={progress.todayTarget} />
@@ -118,7 +118,7 @@ export default async function DashboardPage() {
                 <Flame className="h-8 w-8 text-orange-500" />
                 <div>
                   <div className="text-2xl font-bold">{progress.streak}</div>
-                  <div className="text-sm text-muted-foreground">days</div>
+                  <div className="text-sm text-muted-foreground">дней</div>
                 </div>
               </div>
             </CardContent>
@@ -142,12 +142,12 @@ export default async function DashboardPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="h-5 w-5" />
-                  Today
+                  Сегодня
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  View and complete today's training plan
+                  Просмотрите и выполните план тренировок на сегодня
                 </p>
               </CardContent>
             </Card>
@@ -174,12 +174,12 @@ export default async function DashboardPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BookOpen className="h-5 w-5" />
-                  Mock Interview
+                  Пробное интервью
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Timed interview simulation
+                  Симуляция интервью с таймером
                 </p>
               </CardContent>
             </Card>

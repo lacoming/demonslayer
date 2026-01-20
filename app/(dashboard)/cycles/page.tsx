@@ -7,7 +7,7 @@ import { getRankFromXp } from "@/lib/game"
 import { AdvanceCycleButton } from "@/components/cycles/advance-cycle-button"
 import { Lock, CheckCircle2, Circle } from "lucide-react"
 import cyclesData from "@/content/cycles.json"
-import questionsData from "@/content/questions.json"
+import { Progress } from "@/components/ui/progress"
 
 async function getCyclesData() {
   const progress = await prisma.progress.findUnique({
@@ -33,16 +33,13 @@ async function getCyclesData() {
       // Count completed plans and interviews for current cycle
       let completedPlans = 0
       let completedInterviews = 0
+      let studiedThemes: string[] = []
 
-      if (status === "current") {
+      if (status === "current" || status === "done") {
         completedPlans = await prisma.dailyPlan.count({
           where: {
             cycleCode: cycle.code,
-            tasks: {
-              some: {
-                status: "DONE",
-              },
-            },
+            isCompleted: true,
           },
         })
 
@@ -55,18 +52,41 @@ async function getCyclesData() {
             },
           },
         })
-      }
 
-      const cycleQuestions = questionsData.filter(
-        (q) => q.cycleCode === cycle.code
-      )
+        // Get studied themes: topics from completed KNOWLEDGE tasks
+        const completedKnowledgeTasks = await prisma.dailyTask.findMany({
+          where: {
+            type: "KNOWLEDGE",
+            status: "DONE",
+            dailyPlan: {
+              cycleCode: cycle.code,
+            },
+          },
+          select: {
+            title: true,
+          },
+        })
+
+        // Load templates to get topicTitle
+        const templatesModule = await import("@/content/taskTemplates.json")
+        const templates = templatesModule.default || templatesModule
+
+        studiedThemes = cycle.themes.filter((theme) => {
+          return completedKnowledgeTasks.some((task) => {
+            const template = templates.find(
+              (t: any) => t.title === task.title && t.type === "KNOWLEDGE"
+            )
+            return template?.topicTitle === theme
+          })
+        })
+      }
 
       return {
         ...cycle,
         status,
         completedPlans,
         completedInterviews,
-        questions: cycleQuestions,
+        studiedThemes,
       }
     })
   )
@@ -96,9 +116,9 @@ export default async function CyclesPage() {
 
       <div className="container mx-auto px-4 py-8 space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Циклы обучения</h1>
+          <h1 className="text-3xl font-bold">Отслеживание прогресса</h1>
           <p className="text-muted-foreground mt-1">
-            Освойте каждый цикл, чтобы продвинуться в тренировках
+            Отслеживайте прогресс по циклам и темам обучения
           </p>
         </div>
 
@@ -127,7 +147,7 @@ export default async function CyclesPage() {
                             : "outline"
                         }
                       >
-                        Cycle {cycle.code}
+                        Цикл {cycle.code}
                       </Badge>
                       <Badge variant="outline">
                         {cycle.status === "done" ? "Завершён" : cycle.status === "current" ? "Текущий" : "Заблокирован"}
@@ -142,13 +162,29 @@ export default async function CyclesPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h4 className="font-semibold mb-2">Themes:</h4>
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-semibold">Темы:</h4>
+                    <span className="text-sm text-muted-foreground">
+                      {cycle.studiedThemes.length} / {cycle.themes.length} изучено
+                    </span>
+                  </div>
+                  <Progress
+                    value={(cycle.studiedThemes.length / cycle.themes.length) * 100}
+                    className="mb-2"
+                  />
                   <div className="flex flex-wrap gap-2">
-                    {cycle.themes.map((theme, i) => (
-                      <Badge key={i} variant="secondary" className="text-xs">
-                        {theme}
-                      </Badge>
-                    ))}
+                    {cycle.themes.map((theme, i) => {
+                      const isStudied = cycle.studiedThemes.includes(theme)
+                      return (
+                        <Badge
+                          key={i}
+                          variant={isStudied ? "default" : "secondary"}
+                          className={`text-xs ${isStudied ? "bg-green-600" : ""}`}
+                        >
+                          {theme}
+                        </Badge>
+                      )
+                    })}
                   </div>
                 </div>
 
@@ -157,39 +193,16 @@ export default async function CyclesPage() {
                     <h4 className="font-semibold">Прогресс к следующему циклу:</h4>
                     <div className="text-sm space-y-1">
                       <div>
-                        Ежедневные планы: {cycle.completedPlans} / 3
+                        Планов выполнено: {cycle.completedPlans} / 3
                       </div>
                       <div>
-                        Задачи интервью: {cycle.completedInterviews} / 6
+                        Интервью вопросов закрыто: {cycle.completedInterviews} / 6
                       </div>
                     </div>
                     {cycle.completedPlans >= 3 &&
                       cycle.completedInterviews >= 6 && (
                         <AdvanceCycleButton />
                       )}
-                  </div>
-                )}
-
-                {cycle.questions.length > 0 && (
-                  <div className="border-t pt-4">
-                    <h4 className="font-semibold mb-2">
-                      Interview Questions ({cycle.questions.length})
-                    </h4>
-                    <div className="space-y-2 max-h-60 overflow-y-auto">
-                      {cycle.questions.map((q, i) => (
-                        <div
-                          key={i}
-                          className="text-sm p-2 bg-muted rounded-md"
-                        >
-                          <div className="font-medium">{q.question}</div>
-                          {q.category && (
-                            <div className="text-xs text-muted-foreground mt-1">
-                              Категория: {q.category}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 )}
               </CardContent>

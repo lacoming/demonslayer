@@ -6,20 +6,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { useProgress } from "@/hooks/use-progress"
-import questionsData from "@/content/questions.json"
 import { gameConfig } from "@/config/game"
+import { toast } from "sonner"
+import { format } from "date-fns"
+import { Badge } from "@/components/ui/badge"
+
+interface Message {
+  role: "user" | "assistant"
+  content: string
+  score?: number
+  notes?: string[]
+}
 
 export default function MockPage() {
   const { progress, isLoading } = useProgress()
   const [timer, setTimer] = useState(gameConfig.mockTimerMinutes * 60)
   const [isRunning, setIsRunning] = useState(false)
-  const [questions, setQuestions] = useState<any[]>([])
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [answers, setAnswers] = useState<Record<number, string>>({})
-  const [showResults, setShowResults] = useState(false)
-  const [score, setScore] = useState(5)
-  const [notes, setNotes] = useState("")
-  const [pastRounds, setPastRounds] = useState<any[]>([])
+  const [messages, setMessages] = useState<Message[]>([])
+  const [currentAnswer, setCurrentAnswer] = useState("")
+  const [isLoadingAI, setIsLoadingAI] = useState(false)
+  const [sessionStarted, setSessionStarted] = useState(false)
+  const [totalScore, setTotalScore] = useState(0)
+  const [questionCount, setQuestionCount] = useState(0)
 
   useEffect(() => {
     if (isRunning && timer > 0) {
@@ -27,7 +35,6 @@ export default function MockPage() {
         setTimer((t) => {
           if (t <= 1) {
             setIsRunning(false)
-            setShowResults(true)
             return 0
           }
           return t - 1
@@ -37,34 +44,132 @@ export default function MockPage() {
     }
   }, [isRunning, timer])
 
-  useEffect(() => {
-    loadPastRounds()
-  }, [])
-
-  function startMock() {
+  async function startInterview() {
     if (!progress) return
 
-    // Select 4-6 random questions from current cycle
-    const cycleQuestions = questionsData.filter(
-      (q) => q.cycleCode === progress.currentCycleCode
-    )
+    setIsRunning(true)
+    setTimer(gameConfig.mockTimerMinutes * 60)
+    setSessionStarted(true)
+    setMessages([])
+    setCurrentAnswer("")
+    setTotalScore(0)
+    setQuestionCount(0)
 
-    if (cycleQuestions.length === 0) {
-      alert("Нет доступных вопросов для текущего цикла")
+    // Start with first question
+    await handleInterviewTurn("start", "")
+  }
+
+  async function handleInterviewTurn(mode: "start" | "answer", userAnswer: string) {
+    if (!progress) return
+
+    setIsLoadingAI(true)
+    try {
+      // Get unlocked rank index from sparring progress
+      const sparringRes = await fetch("/api/sparring/progress")
+      let rankIndex = 1
+      if (sparringRes.ok) {
+        const sparringData = await sparringRes.json()
+        rankIndex = sparringData.unlockedRankIndex || 1
+      }
+
+      const res = await fetch("/api/ai/interview/turn", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode,
+          cycleCode: progress.currentCycleCode,
+          rankIndex,
+          history: messages.slice(-8).map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+          userAnswer: mode === "answer" ? userAnswer : undefined,
+        }),
+      })
+
+      if (!res.ok) {
+        const error = await res.json()
+        toast.error(error.error || "Лимит/ошибка AI, попробуйте позже")
+        return
+      }
+
+      const data = await res.json()
+
+      // Add user message if answering
+      if (mode === "answer" && userAnswer) {
+        setMessages((prev) => [
+          ...prev,
+          { role: "user", content: userAnswer },
+        ])
+      }
+
+      // Add AI response
+      const newMessage: Message = {
+        role: "assistant",
+        content: data.interviewerMessage,
+        score: data.score || undefined,
+        notes: data.notes || undefined,
+      }
+
+      setMessages((prev) => [...prev, newMessage])
+
+      // Update score and question count
+      if (data.type === "feedback" && data.score !== null) {
+        setTotalScore((prev) => prev + data.score)
+        setQuestionCount((prev) => prev + 1)
+      }
+
+      setCurrentAnswer("")
+    } catch (error) {
+      console.error("Failed to handle interview turn:", error)
+      toast.error("Ошибка при обработке хода интервью")
+    } finally {
+      setIsLoadingAI(false)
+    }
+  }
+
+  async function submitAnswer() {
+    if (currentAnswer.trim().length < 20) {
+      toast.error("Ответ слишком короткий (минимум 20 символов)")
       return
     }
 
-    const shuffled = [...cycleQuestions].sort(() => Math.random() - 0.5)
-    const selected = shuffled.slice(0, Math.min(6, cycleQuestions.length))
+    await handleInterviewTurn("answer", currentAnswer)
+  }
 
-    setQuestions(selected)
-    setCurrentQuestionIndex(0)
-    setAnswers({})
-    setTimer(gameConfig.mockTimerMinutes * 60)
-    setIsRunning(true)
-    setShowResults(false)
-    setScore(5)
-    setNotes("")
+  async function finishInterview() {
+    if (!progress) return
+
+    const durationMin = Math.floor(
+      (gameConfig.mockTimerMinutes * 60 - timer) / 60
+    )
+    const avgScore = questionCount > 0 ? totalScore / questionCount : 0
+
+    try {
+      const res = await fetch("/api/mock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          durationMin,
+          mode: "TIMED",
+          score: Math.round(avgScore),
+          notes: `Задано вопросов: ${questionCount}. Средняя оценка: ${avgScore.toFixed(1)}`,
+        }),
+      })
+
+      if (!res.ok) {
+        throw new Error("Не удалось сохранить результаты")
+      }
+
+      toast.success("Результаты сохранены!")
+      setSessionStarted(false)
+      setMessages([])
+      setCurrentAnswer("")
+      setIsRunning(false)
+    } catch (error) {
+      console.error(error)
+      toast.error("Не удалось сохранить результаты")
+    }
   }
 
   function formatTime(seconds: number): string {
@@ -73,57 +178,15 @@ export default function MockPage() {
     return `${mins}:${secs.toString().padStart(2, "0")}`
   }
 
-  async function submitResults() {
-    try {
-      const durationMin = Math.floor(
-        (gameConfig.mockTimerMinutes * 60 - timer) / 60
-      )
-
-      const res = await fetch("/api/mock", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          durationMin,
-          mode: "TIMED",
-          score,
-          notes,
-        }),
-      })
-
-      if (!res.ok) {
-        throw new Error("Failed to save results")
-      }
-
-      loadPastRounds()
-      setShowResults(false)
-      setQuestions([])
-    } catch (error) {
-      console.error(error)
-      alert("Не удалось сохранить результаты")
-    }
-  }
-
-  async function loadPastRounds() {
-    try {
-      const res = await fetch("/api/mock")
-      if (res.ok) {
-        const data = await res.json()
-        setPastRounds(data.rounds || [])
-      }
-    } catch (error) {
-      console.error("Failed to load past rounds:", error)
-    }
-  }
-
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Загрузка...</div>
   }
 
   if (!progress) {
-    return <div>Error loading progress</div>
+    return <div>Ошибка загрузки прогресса</div>
   }
 
-  if (questions.length === 0 && !showResults) {
+  if (!sessionStarted) {
     return (
       <div>
         <TopBar
@@ -136,11 +199,11 @@ export default function MockPage() {
             <CardHeader>
               <CardTitle>Пробное интервью</CardTitle>
               <CardDescription>
-                Практикуйтесь с интервью с таймером ({gameConfig.mockTimerMinutes} минут)
+                Симуляция интервью с AI-техлидом ({gameConfig.mockTimerMinutes} минут)
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="breath" onClick={startMock} className="w-full">
+              <Button variant="breath" onClick={startInterview} className="w-full">
                 Начать пробное интервью
               </Button>
             </CardContent>
@@ -149,58 +212,6 @@ export default function MockPage() {
       </div>
     )
   }
-
-  if (showResults) {
-    return (
-      <div>
-        <TopBar
-          rank={progress.rank}
-          totalXp={progress.totalXp}
-          streak={progress.streak}
-        />
-        <div className="container mx-auto px-4 py-8 space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Интервью завершено</CardTitle>
-              <CardDescription>Оцените свою работу</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <label className="text-sm font-medium mb-2 block">
-                  Self Score (0-10):
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="10"
-                  value={score}
-                  onChange={(e) => setScore(parseInt(e.target.value))}
-                  className="w-full"
-                />
-                <div className="text-center mt-1">{score}/10</div>
-              </div>
-
-              <div>
-                <label className="text-sm font-medium mb-2 block">Заметки:</label>
-                <Textarea
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Что прошло хорошо? Что улучшить?"
-                  rows={4}
-                />
-              </div>
-
-              <Button variant="breath" onClick={submitResults} className="w-full">
-                Save Results
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    )
-  }
-
-  const currentQuestion = questions[currentQuestionIndex]
 
   return (
     <div>
@@ -219,78 +230,95 @@ export default function MockPage() {
               </div>
             </div>
             <CardDescription>
-              Вопрос {currentQuestionIndex + 1} из {questions.length}
+              Вопросов задано: {questionCount}
+              {questionCount > 0 && (
+                <span className="ml-2">
+                  • Средняя оценка: {(totalScore / questionCount).toFixed(1)}/10
+                </span>
+              )}
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <h3 className="font-semibold mb-2">{currentQuestion.question}</h3>
-              <p className="text-sm text-muted-foreground">
-                {currentQuestion.category} - Цикл {currentQuestion.cycleCode}
-              </p>
-            </div>
+        </Card>
 
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                Ваш ответ:
-              </label>
-              <Textarea
-                value={answers[currentQuestionIndex] || ""}
-                onChange={(e) =>
-                  setAnswers({ ...answers, [currentQuestionIndex]: e.target.value })
-                }
-                placeholder="Напишите ваш ответ здесь..."
-                rows={8}
-              />
-            </div>
-
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={() =>
-                  setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))
-                }
-                disabled={currentQuestionIndex === 0}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() =>
-                  setCurrentQuestionIndex(
-                    Math.min(questions.length - 1, currentQuestionIndex + 1)
-                  )
-                }
-                disabled={currentQuestionIndex === questions.length - 1}
-              >
-                Next
-              </Button>
+        {/* Chat Messages */}
+        <Card>
+          <CardContent className="p-6">
+            <div className="space-y-4 max-h-[500px] overflow-y-auto">
+              {messages.length === 0 && (
+                <div className="text-center text-muted-foreground py-8">
+                  Ожидание первого вопроса...
+                </div>
+              )}
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${
+                    message.role === "user" ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[80%] rounded-lg p-4 ${
+                      message.role === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted"
+                    }`}
+                  >
+                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    {message.score !== undefined && (
+                      <div className="mt-2 pt-2 border-t border-border/50">
+                        <Badge variant="outline" className="mr-2">
+                          Оценка: {message.score}/10
+                        </Badge>
+                        {message.notes && message.notes.length > 0 && (
+                          <ul className="mt-2 text-sm list-disc list-inside">
+                            {message.notes.map((note, i) => (
+                              <li key={i}>{note}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+              {isLoadingAI && (
+                <div className="flex justify-start">
+                  <div className="bg-muted rounded-lg p-4">
+                    <p className="text-muted-foreground">AI думает...</p>
+                  </div>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
 
-        {pastRounds.length > 0 && (
+        {/* Answer Input */}
+        {!isLoadingAI && (
           <Card>
-            <CardHeader>
-              <CardTitle>Прошлые раунды</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {pastRounds.slice(0, 5).map((round) => (
-                  <div
-                    key={round.id}
-                    className="flex justify-between items-center p-2 bg-muted rounded"
-                  >
-                    <div>
-                      <div className="font-medium">
-                        {round.date} - Оценка: {round.score}/10
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        {round.durationMin} мин - {round.mode === "TIMED" ? "С таймером" : "Без таймера"}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            <CardContent className="p-6 space-y-4">
+              <Textarea
+                value={currentAnswer}
+                onChange={(e) => setCurrentAnswer(e.target.value)}
+                placeholder="Введите ваш ответ..."
+                rows={4}
+                disabled={isLoadingAI}
+              />
+              <div className="flex gap-2">
+                <Button
+                  variant="default"
+                  onClick={submitAnswer}
+                  disabled={currentAnswer.trim().length < 20 || isLoadingAI}
+                  className="flex-1"
+                >
+                  Отправить ответ
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={finishInterview}
+                  disabled={isLoadingAI}
+                >
+                  Завершить интервью
+                </Button>
               </div>
             </CardContent>
           </Card>

@@ -89,9 +89,9 @@ export default async function FinalBattlePage() {
         ) : (
           <Card>
             <CardHeader>
-              <CardTitle>Readiness Checklist</CardTitle>
+              <CardTitle>Чеклист готовности</CardTitle>
               <CardDescription>
-                Complete all requirements to unlock the final battle
+                Выполните все требования, чтобы разблокировать финальную битву
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -116,9 +116,9 @@ export default async function FinalBattlePage() {
                   <XCircle className="h-6 w-6 text-muted-foreground" />
                 )}
                 <div className="flex-1">
-                  <div className="font-medium">Complete Cycle 6 (State & Data Fetching)</div>
+                  <div className="font-medium">Завершить Цикл 6 (State & Data Fetching)</div>
                   <div className="text-sm text-muted-foreground">
-                    Finish at least 3 daily plans for Cycle 6
+                    Выполните как минимум 3 ежедневных плана для Цикла 6
                   </div>
                 </div>
               </div>

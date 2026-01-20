@@ -11,7 +11,7 @@ export async function GET() {
 
     if (!progress) {
       return NextResponse.json(
-        { error: "Progress not found" },
+        { error: "Прогресс не найден" },
         { status: 404 }
       )
     }
@@ -51,7 +51,7 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching cycles:", error)
     return NextResponse.json(
-      { error: "Failed to fetch cycles" },
+      { error: "Не удалось загрузить циклы" },
       { status: 500 }
     )
   }

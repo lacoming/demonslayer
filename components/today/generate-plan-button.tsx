@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export function GeneratePlanButton() {
   const [loading, setLoading] = useState(false)
@@ -19,10 +20,11 @@ export function GeneratePlanButton() {
         throw new Error("Не удалось создать план")
       }
 
+      toast.success("План на сегодня создан!")
       router.refresh()
     } catch (error) {
       console.error(error)
-      alert("Failed to generate plan")
+      toast.error("Не удалось создать план")
     } finally {
       setLoading(false)
     }

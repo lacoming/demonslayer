@@ -38,9 +38,9 @@ export default async function SettingsPage() {
 
       <div className="container mx-auto px-4 py-8 space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Settings</h1>
+          <h1 className="text-3xl font-bold">Настройки</h1>
           <p className="text-muted-foreground mt-1">
-            Configure your training experience
+            Настройте свой опыт тренировок
           </p>
         </div>
 
@@ -54,21 +54,21 @@ export default async function SettingsPage() {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium">Target Daily XP</label>
+                <label className="text-sm font-medium">Целевое ежедневное ОП</label>
                 <p className="text-sm text-muted-foreground">
-                  Default: 100 XP (configurable in config/game.ts)
+                  По умолчанию: 100 ОП (настраивается в config/game.ts)
                 </p>
               </div>
               <div>
-                <label className="text-sm font-medium">Rank XP Step</label>
+                <label className="text-sm font-medium">Шаг ОП для ранга</label>
                 <p className="text-sm text-muted-foreground">
-                  Default: 500 XP per rank (configurable in config/game.ts)
+                  По умолчанию: 500 ОП за ранг (настраивается в config/game.ts)
                 </p>
               </div>
               <div>
-                <label className="text-sm font-medium">Language</label>
+                <label className="text-sm font-medium">Язык</label>
                 <p className="text-sm text-muted-foreground">
-                  Currently: English (RU/EN toggle coming soon)
+                  Текущий: Русский (переключение RU/EN скоро)
                 </p>
               </div>
             </div>

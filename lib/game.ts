@@ -63,42 +63,62 @@ export async function generateDailyPlan(
     (t) => t.type === "INTERVIEW" && t.cycleCode === currentCycleCode
   )
 
-  // Pick random templates (avoid repeats by tracking used)
+  // Deterministic selection based on date to avoid repeats
+  // Simple hash function for date + type + cycleCode
+  function hashString(str: string): number {
+    let hash = 0
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i)
+      hash = (hash << 5) - hash + char
+      hash = hash & hash // Convert to 32bit integer
+    }
+    return Math.abs(hash)
+  }
+
   const selectedTasks = []
 
   // 1 KNOWLEDGE
   if (knowledgeTemplates.length > 0) {
-    const random = Math.floor(Math.random() * knowledgeTemplates.length)
-    selectedTasks.push(knowledgeTemplates[random])
+    const hash = hashString(`${date}-KNOWLEDGE-${currentCycleCode}`)
+    const index = hash % knowledgeTemplates.length
+    selectedTasks.push(knowledgeTemplates[index])
   }
 
   // 1 DRILL_JS
   if (drillJsTemplates.length > 0) {
-    const random = Math.floor(Math.random() * drillJsTemplates.length)
-    selectedTasks.push(drillJsTemplates[random])
+    const hash = hashString(`${date}-DRILL_JS`)
+    const index = hash % drillJsTemplates.length
+    selectedTasks.push(drillJsTemplates[index])
   }
 
   // 1 DRILL_TS
   if (drillTsTemplates.length > 0) {
-    const random = Math.floor(Math.random() * drillTsTemplates.length)
-    selectedTasks.push(drillTsTemplates[random])
+    const hash = hashString(`${date}-DRILL_TS`)
+    const index = hash % drillTsTemplates.length
+    selectedTasks.push(drillTsTemplates[index])
   }
 
   // 2 INTERVIEW
   if (interviewTemplates.length > 0) {
-    const shuffled = [...interviewTemplates].sort(() => Math.random() - 0.5)
-    selectedTasks.push(...shuffled.slice(0, 2))
+    const hash1 = hashString(`${date}-INTERVIEW-1-${currentCycleCode}`)
+    const hash2 = hashString(`${date}-INTERVIEW-2-${currentCycleCode}`)
+    const index1 = hash1 % interviewTemplates.length
+    let index2 = hash2 % interviewTemplates.length
+    // Ensure different tasks
+    if (index2 === index1 && interviewTemplates.length > 1) {
+      index2 = (index2 + 1) % interviewTemplates.length
+    }
+    selectedTasks.push(interviewTemplates[index1])
+    if (index2 !== index1) {
+      selectedTasks.push(interviewTemplates[index2])
+    }
   }
 
   // Calculate base XP
   let baseXp = selectedTasks.reduce((sum, task) => sum + task.xp, 0)
 
-  // Apply streak bonus
-  const bonus = calculateStreakBonus(streak)
-  const targetXp = Math.floor(baseXp * (1 + bonus))
-
   // If still below target, add more tasks
-  if (targetXp < gameConfig.defaultTargetXp && interviewTemplates.length > 2) {
+  if (baseXp < gameConfig.defaultTargetXp && interviewTemplates.length > 2) {
     const extra = interviewTemplates
       .filter((t) => !selectedTasks.includes(t))
       .slice(0, 1)
@@ -106,12 +126,15 @@ export async function generateDailyPlan(
     baseXp = selectedTasks.reduce((sum, task) => sum + task.xp, 0)
   }
 
+  // targetXp is fixed, streak bonus applies to awarded XP, not target
+  const targetXp = Math.max(baseXp, gameConfig.defaultTargetXp)
+
   // Create plan
   const plan = await prisma.dailyPlan.create({
     data: {
       date,
       cycleCode: currentCycleCode,
-      targetXp: Math.max(targetXp, gameConfig.defaultTargetXp),
+      targetXp,
       tasks: {
         create: selectedTasks.map((template) => ({
           type: template.type,
@@ -137,15 +160,11 @@ export async function canAdvanceCycle(
 ): Promise<{ canAdvance: boolean; reasons: string[] }> {
   const reasons: string[] = []
 
-  // Check daily plans
+  // Check daily plans using isCompleted
   const completedPlans = await prisma.dailyPlan.count({
     where: {
       cycleCode: currentCycleCode,
-      tasks: {
-        some: {
-          status: "DONE",
-        },
-      },
+      isCompleted: true,
     },
   })
 
@@ -202,27 +221,20 @@ export async function updateStreak(
     return 1
   }
 
-  // Parse dates
-  const last = new Date(lastDate)
-  const today = new Date(todayDate)
+  // Compare date strings directly (YYYY-MM-DD format)
+  // Calculate yesterday's date string
+  const today = new Date(todayDate + "T00:00:00")
   const yesterday = new Date(today)
   yesterday.setDate(yesterday.getDate() - 1)
+  const yesterdayStr = format(yesterday, "yyyy-MM-dd")
 
   // Check if last completion was yesterday (maintain streak)
-  if (
-    last.getFullYear() === yesterday.getFullYear() &&
-    last.getMonth() === yesterday.getMonth() &&
-    last.getDate() === yesterday.getDate()
-  ) {
+  if (lastDate === yesterdayStr) {
     return progress.streak + 1
   }
 
   // Check if last completion was today (already counted)
-  if (
-    last.getFullYear() === today.getFullYear() &&
-    last.getMonth() === today.getMonth() &&
-    last.getDate() === today.getDate()
-  ) {
+  if (lastDate === todayDate) {
     return progress.streak
   }
 

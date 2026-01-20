@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export function AdvanceCycleButton() {
   const [loading, setLoading] = useState(false)
@@ -24,10 +25,15 @@ export function AdvanceCycleButton() {
         throw new Error(data.error || "Не удалось перейти к следующему циклу")
       }
 
+      toast.success("Переход к следующему циклу выполнен!")
       router.refresh()
-    } catch (error: any) {
+    } catch (error) {
       console.error(error)
-      alert(error.message || "Failed to advance cycle")
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Не удалось перейти к следующему циклу"
+      )
     } finally {
       setLoading(false)
     }

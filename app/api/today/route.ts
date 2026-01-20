@@ -31,7 +31,7 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching today plan:", error)
     return NextResponse.json(
-      { error: "Failed to fetch today plan" },
+      { error: "Не удалось загрузить план на сегодня" },
       { status: 500 }
     )
   }

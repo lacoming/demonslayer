@@ -1,0 +1,290 @@
+[
+  {
+    "id": 1,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 1,
+    "question": "Объясните разницу между мутирующими и немутирующими методами массивов. Приведите примеры.",
+    "keyPoints": ["Мутирующие: push, pop, shift, unshift, splice, sort, reverse", "Немутирующие: map, filter, reduce, slice, concat", "Преимущества иммутабельности", "Когда использовать каждый"]
+  },
+  {
+    "id": 2,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 2,
+    "question": "Что такое замыкания и как они работают?",
+    "keyPoints": ["Лексическая область видимости", "Функция помнит внешнюю область", "Типичные случаи использования", "Соображения по памяти"]
+  },
+  {
+    "id": 3,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 3,
+    "question": "Объясните контекст выполнения, привязку this и bind/call/apply.",
+    "keyPoints": ["Глобальный vs функциональный контекст", "this в разных сценариях", "bind возвращает новую функцию", "call/apply вызывают немедленно", "Стрелочные функции и this"]
+  },
+  {
+    "id": 4,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 3,
+    "question": "Сравните Promise и async/await. Когда бы вы использовали методы Promise вроде Promise.all?",
+    "keyPoints": ["Конструктор Promise", "Синтаксис async/await", "Различия в обработке ошибок", "Promise.all, Promise.race, Promise.allSettled", "Когда использовать каждый"]
+  },
+  {
+    "id": 5,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 4,
+    "question": "Что такое прототипы и внутренние слоты вроде [[Prototype]]?",
+    "keyPoints": ["Цепочка прототипов", "Внутренний слот [[Prototype]]", "Object.getPrototypeOf()", "__proto__ vs prototype", "Модель наследования"]
+  },
+  {
+    "id": 6,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 4,
+    "question": "В чём разница между операторами || и ???",
+    "keyPoints": ["|| возвращает первое truthy значение", "?? возвращает первое non-nullish значение", "Falsy vs nullish", "Случаи использования каждого"]
+  },
+  {
+    "id": 7,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 5,
+    "question": "Объясните сборку мусора и достижимость.",
+    "keyPoints": ["Алгоритм mark-and-sweep", "Концепция достижимости", "Циклические ссылки", "Предотвращение утечек памяти"]
+  },
+  {
+    "id": 8,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 5,
+    "question": "Сравните различные подходы к клонированию объектов: поверхностное vs глубокое.",
+    "keyPoints": ["Object.assign", "Оператор spread", "Ограничения JSON.parse/stringify", "Structured cloning", "Lodash cloneDeep"]
+  },
+  {
+    "id": 9,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 6,
+    "question": "Объясните очереди event loop: микро- vs макро-задачи.",
+    "keyPoints": ["Стек вызовов", "Микро-задачи (Promise, queueMicrotask)", "Макро-задачи (setTimeout, setInterval)", "Порядок выполнения"]
+  },
+  {
+    "id": 10,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 6,
+    "question": "Как работает reduce()? Сравните Map vs Object, WeakMap/WeakSet.",
+    "keyPoints": ["Паттерн аккумулятора reduce", "Преимущества Map", "WeakMap/WeakSet для слабых ссылок", "Когда использовать каждый"]
+  },
+  {
+    "id": 11,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 7,
+    "question": "Каковы риски рекурсии и когда её следует избегать?",
+    "keyPoints": ["Переполнение стека", "Оптимизация хвостовых вызовов", "Итеративные альтернативы", "Когда рекурсия уместна"]
+  },
+  {
+    "id": 12,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 7,
+    "question": "Объясните распространение событий, делегирование и как они работают.",
+    "keyPoints": ["Фазы capture, target, bubble", "stopPropagation()", "Преимущества делегирования событий", "Влияние на производительность"]
+  },
+  {
+    "id": 13,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 8,
+    "question": "Объясните генераторы и AbortController.",
+    "keyPoints": ["Функции-генераторы", "Ключевое слово yield", "AbortController для отмены", "Интеграция с Fetch API"]
+  },
+  {
+    "id": 14,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 8,
+    "question": "Что такое каррирование и как оно полезно?",
+    "keyPoints": ["Частичное применение", "Композиция функций", "Переиспользование", "Функциональное программирование"]
+  },
+  {
+    "id": 15,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 9,
+    "question": "Что такое requestAnimationFrame и requestIdleCallback?",
+    "keyPoints": ["rAF для анимаций", "rIC для фоновой работы", "Оптимизация браузера", "Преимущества производительности"]
+  },
+  {
+    "id": 16,
+    "cycleCode": 1,
+    "category": "JavaScript Core",
+    "minRankIndex": 9,
+    "question": "Объясните IntersectionObserver и ResizeObserver.",
+    "keyPoints": ["IO для обнаружения видимости", "RO для изменений размера", "Производительность vs слушатели прокрутки", "Случаи использования"]
+  },
+  {
+    "id": 17,
+    "cycleCode": 1,
+    "category": "Browser/Network",
+    "minRankIndex": 2,
+    "question": "Что происходит, когда вы вводите URL в браузере?",
+    "keyPoints": ["DNS-запрос", "TCP-соединение", "HTTP-запрос", "Парсинг ответа", "Конвейер рендеринга"]
+  },
+  {
+    "id": 18,
+    "cycleCode": 1,
+    "category": "Browser/Network",
+    "minRankIndex": 3,
+    "question": "Объясните структуру HTTP-запроса и HTTP vs HTTPS.",
+    "keyPoints": ["Строка запроса, заголовки, тело", "Шифрование HTTPS", "TLS handshake", "Преимущества безопасности"]
+  },
+  {
+    "id": 19,
+    "cycleCode": 1,
+    "category": "Browser/Network",
+    "minRankIndex": 4,
+    "question": "Что такое флаги cookie: HttpOnly, SameSite, Secure?",
+    "keyPoints": ["HttpOnly предотвращает доступ из JS", "SameSite защита от CSRF", "Secure только для HTTPS", "Альтернативы хранения"]
+  },
+  {
+    "id": 20,
+    "cycleCode": 1,
+    "category": "Browser/Network",
+    "minRankIndex": 5,
+    "question": "Объясните CORS, preflight и OPTIONS-запрос.",
+    "keyPoints": ["Политика same-origin", "CORS заголовки", "Preflight для сложных запросов", "Метод OPTIONS"]
+  },
+  {
+    "id": 21,
+    "cycleCode": 1,
+    "category": "Browser/Network",
+    "minRankIndex": 6,
+    "question": "Опишите конвейер рендеринга: layout, paint, compositing.",
+    "keyPoints": ["Парсинг HTML/CSS", "Layout (reflow)", "Paint", "Композиция слоёв", "Оптимизация производительности"]
+  },
+  {
+    "id": 22,
+    "cycleCode": 1,
+    "category": "Browser/Network",
+    "minRankIndex": 7,
+    "question": "Сравните WebWorker vs ServiceWorker.",
+    "keyPoints": ["WebWorker для фоновых задач", "ServiceWorker для кэширования/офлайн", "Разные случаи использования", "Методы коммуникации"]
+  },
+  {
+    "id": 23,
+    "cycleCode": 2,
+    "category": "TypeScript",
+    "minRankIndex": 3,
+    "question": "В чём разница между type и interface?",
+    "keyPoints": ["interface можно расширять/объединять", "type для объединений/пересечений", "Когда использовать каждый", "Соображения производительности"]
+  },
+  {
+    "id": 24,
+    "cycleCode": 2,
+    "category": "TypeScript",
+    "minRankIndex": 4,
+    "question": "Объясните типы any, unknown и never.",
+    "keyPoints": ["any отключает проверку типов", "unknown требует сужения типа", "never для невозможных значений", "Лучшие практики"]
+  },
+  {
+    "id": 25,
+    "cycleCode": 2,
+    "category": "TypeScript",
+    "minRankIndex": 5,
+    "question": "Как работают generics? Объясните ограничения extends.",
+    "keyPoints": ["Синтаксис generics", "Параметры типа", "extends для ограничений", "Параметры типа по умолчанию"]
+  },
+  {
+    "id": 26,
+    "cycleCode": 2,
+    "category": "TypeScript",
+    "minRankIndex": 6,
+    "question": "В чём разница между keyof и typeof?",
+    "keyPoints": ["keyof получает ключи", "typeof получает тип", "Комбинированное использование", "Манипуляции с типами"]
+  },
+  {
+    "id": 27,
+    "cycleCode": 2,
+    "category": "TypeScript",
+    "minRankIndex": 7,
+    "question": "Объясните utility types: Partial, Required, Pick, Omit.",
+    "keyPoints": ["Partial делает опциональным", "Required делает обязательным", "Pick выбирает свойства", "Omit исключает свойства"]
+  },
+  {
+    "id": 28,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 4,
+    "question": "Что такое Error Boundary и почему это должен быть class component?",
+    "keyPoints": ["Перехватывает ошибки в дереве", "Жизненный цикл componentDidCatch", "Требование class component", "Восстановление после ошибок"]
+  },
+  {
+    "id": 29,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 5,
+    "question": "Почему очистка таймеров важна в useEffect?",
+    "keyPoints": ["Утечки памяти", "Функция очистки", "Массив зависимостей", "Размонтирование компонента"]
+  },
+  {
+    "id": 30,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 6,
+    "question": "Объясните VDOM, hooks и useEffect vs useLayoutEffect.",
+    "keyPoints": ["Концепция Virtual DOM", "Правила hooks", "useEffect асинхронный", "useLayoutEffect синхронный"]
+  },
+  {
+    "id": 31,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 7,
+    "question": "Что такое HOC и memo? Почему memo может не сработать?",
+    "keyPoints": ["Паттерн HOC", "memo для мемоизации", "Равенство по ссылке", "Когда memo не помогает"]
+  },
+  {
+    "id": 32,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 8,
+    "question": "Каковы ограничения Context и когда его избегать?",
+    "keyPoints": ["Ре-рендер всех потребителей", "Влияние на производительность", "Когда использовать управление состоянием", "Лучшие практики"]
+  },
+  {
+    "id": 33,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 8,
+    "question": "Объясните lazy/suspense и загрузку тяжёлых компонентов.",
+    "keyPoints": ["Разделение кода", "React.lazy", "Границы Suspense", "Состояния загрузки"]
+  },
+  {
+    "id": 34,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 9,
+    "question": "Сравните useMemo vs useCallback.",
+    "keyPoints": ["useMemo для значений", "useCallback для функций", "Когда использовать каждый", "Массивы зависимостей"]
+  },
+  {
+    "id": 35,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 10,
+    "question": "Что такое Fiber и как это работает?",
+    "keyPoints": ["Алгоритм reconciliation", "Инкрементальный рендеринг", "Приоритетное планирование", "Архитектура React 16+"]
+  },
+  {
+    "id": 36,
+    "cycleCode": 5,
+    "category": "React",
+    "minRankIndex": 11,
+    "question": "Каковы основные возможности React 18/19?",
+    "keyPoints": ["Concurrent функции", "Автоматическая батчинг", "Улучшения Suspense", "Server components"]
+  }
+]

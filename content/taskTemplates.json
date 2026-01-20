@@ -3,22 +3,64 @@
     "id": "knowledge-1",
     "type": "KNOWLEDGE",
     "cycleCode": 1,
+    "topicTitle": "Замыкания",
     "title": "Изучить замыкания JavaScript",
     "prompt": "Прочитайте о замыканиях, лексической области видимости и типичных случаях использования. Напишите резюме о том, как работают замыкания и когда они полезны.",
-    "xp": 20
+    "xp": 20,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Что такое замыкания",
+        "content": "Замыкание — это функция, которая имеет доступ к переменным из внешней (охватывающей) области видимости, даже после того, как внешняя функция завершила выполнение.\n\n**Ключевые концепции:**\n- Лексическая область видимости\n- Сохранение ссылок на внешние переменные\n- Типичные случаи использования: счётчики, мемоизация, модульный паттерн"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Напишите краткое объяснение того, как работают замыкания и когда они полезны (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["замыкание", "область видимости", "функция", "переменная"]
+      }
+    ]
   },
   {
     "id": "knowledge-2",
     "type": "KNOWLEDGE",
     "cycleCode": 1,
+    "topicTitle": "Event loop",
     "title": "Изучить Event Loop",
     "prompt": "Глубокое погружение в event loop JavaScript, микро-задачи vs макро-задачи. Объясните порядок выполнения с примерами.",
-    "xp": 20
+    "xp": 20,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Event Loop в JavaScript",
+        "content": "Event Loop — это механизм, который управляет выполнением кода, обработкой событий и выполнением подзадач.\n\n**Очереди:**\n- **Стек вызовов** — синхронный код\n- **Микро-задачи** — Promise.then, queueMicrotask, async/await\n- **Макро-задачи** — setTimeout, setInterval, I/O операции\n\n**Порядок выполнения:**\n1. Выполняется весь синхронный код из стека\n2. Выполняются все микро-задачи\n3. Выполняется одна макро-задача\n4. Повторяется с шага 2"
+      },
+      {
+        "type": "quiz_single",
+        "title": "Проверка понимания",
+        "question": "В каком порядке выполнятся следующие операции?\n\n```javascript\nconsole.log('1');\nsetTimeout(() => console.log('2'), 0);\nPromise.resolve().then(() => console.log('3'));\nconsole.log('4');\n```",
+        "options": [
+          "1, 2, 3, 4",
+          "1, 4, 3, 2",
+          "1, 4, 2, 3",
+          "1, 3, 4, 2"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "type": "text_answer",
+        "title": "Объяснение своими словами",
+        "question": "Объясните разницу между микро-задачами и макро-задачами (минимум 80 символов)",
+        "minChars": 80
+      }
+    ]
   },
   {
     "id": "knowledge-3",
     "type": "KNOWLEDGE",
     "cycleCode": 1,
+    "topicTitle": "Promises",
     "title": "Изучить Promises и Async/Await",
     "prompt": "Повторите Promise API, синтаксис async/await, обработку ошибок и методы Promise (all, race, allSettled).",
     "xp": 20
@@ -27,6 +69,7 @@
     "id": "knowledge-4",
     "type": "KNOWLEDGE",
     "cycleCode": 2,
+    "topicTitle": "Generics",
     "title": "Изучить Generics в TypeScript",
     "prompt": "Изучите generics, параметры типа, ограничения с extends и параметры типа по умолчанию.",
     "xp": 20
@@ -35,6 +78,7 @@
     "id": "knowledge-5",
     "type": "KNOWLEDGE",
     "cycleCode": 2,
+    "topicTitle": "type vs interface",
     "title": "Изучить Type vs Interface",
     "prompt": "Поймите, когда использовать type vs interface, объединение объявлений и паттерны композиции типов.",
     "xp": 20
@@ -43,6 +87,7 @@
     "id": "knowledge-6",
     "type": "KNOWLEDGE",
     "cycleCode": 5,
+    "topicTitle": "Hooks",
     "title": "Изучить React Hooks",
     "prompt": "Повторите все React hooks: useState, useEffect, useContext, useMemo, useCallback, useRef и кастомные hooks.",
     "xp": 20
@@ -51,6 +96,7 @@
     "id": "knowledge-7",
     "type": "KNOWLEDGE",
     "cycleCode": 5,
+    "topicTitle": "Fiber",
     "title": "Изучить React Fiber",
     "prompt": "Изучите архитектуру React Fiber, reconciliation и как React планирует обновления.",
     "xp": 20
@@ -61,7 +107,20 @@
     "cycleCode": null,
     "title": "Практика методов массивов",
     "prompt": "Напишите код, используя map, filter, reduce, find, some, every. Решите 3 задачи, используя эти методы.",
-    "xp": 15
+    "xp": 15,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Методы массивов",
+        "content": "Повторите основные методы массивов:\n- **map** — преобразует каждый элемент\n- **filter** — фильтрует элементы\n- **reduce** — сводит массив к одному значению\n- **find** — находит первый элемент\n- **some** — проверяет, есть ли хотя бы один\n- **every** — проверяет, все ли соответствуют условию"
+      },
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "prompt": "Напишите функцию, которая использует map, filter и reduce для обработки массива чисел",
+        "requiredTokens": ["map", "filter", "reduce"]
+      }
+    ]
   },
   {
     "id": "drill-js-2",
@@ -77,7 +136,20 @@
     "cycleCode": null,
     "title": "Практика Promises",
     "prompt": "Напишите асинхронные функции, используя Promise.all, Promise.race и правильно обрабатывайте ошибки.",
-    "xp": 15
+    "xp": 15,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Promise методы",
+        "content": "**Promise.all** — ждёт все промисы, возвращает массив результатов или первую ошибку\n**Promise.race** — возвращает результат первого выполнившегося промиса\n**Promise.allSettled** — ждёт все промисы, возвращает результаты и ошибки"
+      },
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "prompt": "Напишите код, использующий Promise.all для параллельного выполнения нескольких асинхронных операций",
+        "requiredTokens": ["Promise.all", "async", "await"]
+      }
+    ]
   },
   {
     "id": "drill-js-4",
@@ -123,6 +195,7 @@
     "id": "interview-1-1",
     "type": "INTERVIEW",
     "cycleCode": 1,
+    "topicTitle": "Замыкания",
     "title": "Интервью: Замыкания",
     "prompt": "Объясните замыкания интервьюеру. Покройте лексическую область видимости, случаи использования и потенциальные проблемы.",
     "xp": 25
@@ -131,6 +204,7 @@
     "id": "interview-1-2",
     "type": "INTERVIEW",
     "cycleCode": 1,
+    "topicTitle": "Event loop",
     "title": "Интервью: Event Loop",
     "prompt": "Объясните event loop, микро-задачи vs макро-задачи и порядок выполнения с примерами.",
     "xp": 25
@@ -139,6 +213,7 @@
     "id": "interview-1-3",
     "type": "INTERVIEW",
     "cycleCode": 1,
+    "topicTitle": "Promises",
     "title": "Интервью: Promises",
     "prompt": "Сравните Promise и async/await. Объясните Promise.all, race, allSettled с примерами использования.",
     "xp": 25
@@ -147,6 +222,7 @@
     "id": "interview-2-1",
     "type": "INTERVIEW",
     "cycleCode": 2,
+    "topicTitle": "type vs interface",
     "title": "Интервью: Type vs Interface",
     "prompt": "Объясните, когда использовать type vs interface, объединение объявлений и композицию типов.",
     "xp": 25
@@ -155,6 +231,7 @@
     "id": "interview-2-2",
     "type": "INTERVIEW",
     "cycleCode": 2,
+    "topicTitle": "Generics",
     "title": "Интервью: Generics",
     "prompt": "Объясните generics в TypeScript, ограничения и приведите практические примеры.",
     "xp": 25
@@ -163,6 +240,7 @@
     "id": "interview-5-1",
     "type": "INTERVIEW",
     "cycleCode": 5,
+    "topicTitle": "Hooks",
     "title": "Интервью: React Hooks",
     "prompt": "Объясните useState, useEffect, useMemo, useCallback. Когда использовать каждый и типичные подводные камни.",
     "xp": 25
@@ -171,6 +249,7 @@
     "id": "interview-5-2",
     "type": "INTERVIEW",
     "cycleCode": 5,
+    "topicTitle": "memo pitfalls",
     "title": "Интервью: Производительность React",
     "prompt": "Объясните React.memo, useMemo, useCallback и когда они помогают или не помогают производительности.",
     "xp": 25
@@ -179,6 +258,7 @@
     "id": "interview-5-3",
     "type": "INTERVIEW",
     "cycleCode": 5,
+    "topicTitle": "Fiber",
     "title": "Интервью: React Fiber",
     "prompt": "Объясните архитектуру React Fiber, reconciliation и как React планирует обновления.",
     "xp": 25

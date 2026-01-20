@@ -13,7 +13,7 @@ export async function GET() {
 
     if (!progress) {
       return NextResponse.json(
-        { error: "Progress not found" },
+        { error: "Прогресс не найден" },
         { status: 404 }
       )
     }
@@ -27,7 +27,7 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching progress:", error)
     return NextResponse.json(
-      { error: "Failed to fetch progress" },
+      { error: "Не удалось загрузить прогресс" },
       { status: 500 }
     )
   }
