@@ -146,13 +146,31 @@ export default function SparringPage() {
         }),
       })
 
+      // Читаем ответ как текст для универсальной обработки
+      const text = await res.text()
+      let data: any = null
+      try {
+        data = JSON.parse(text)
+      } catch (parseError) {
+        // Если не JSON, оставляем data = null
+      }
+
       if (!res.ok) {
-        const error = await res.json()
-        toast.error(error.error || "Лимит/ошибка AI, попробуйте позже")
+        const errorMessage = data?.error ?? `Ошибка ИИ (${res.status})`
+        toast.error(errorMessage)
+        if (data?.debug) {
+          console.error("SPARRING DEBUG:", data.debug)
+        }
         return
       }
 
-      const result: EvaluationResult = await res.json()
+      // Проверяем что получили валидный JSON
+      if (!data) {
+        toast.error("Неожиданный формат ответа от сервера")
+        return
+      }
+
+      const result: EvaluationResult = data
       setEvaluationResult(result)
 
       // Save attempt
@@ -199,7 +217,8 @@ export default function SparringPage() {
       }
     } catch (error) {
       console.error("Failed to evaluate answer:", error)
-      toast.error("Ошибка при оценке ответа")
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      toast.error(`Ошибка подключения: ${errorMessage}`)
     } finally {
       setIsEvaluating(false)
     }

@@ -57,9 +57,48 @@ export async function POST(
 
     const steps = getStepsFromTemplate(template)
 
-    // Verify all steps are passed
-    const allStepsPassed = steps.every((_, index) => {
-      const stepState = session.stepStates.find((s) => s.stepIndex === index)
+    // Auto-complete any theory steps that aren't passed yet
+    for (let index = 0; index < steps.length; index++) {
+      const step = steps[index]
+      if (step.type === "theory") {
+        const stepState = session.stepStates.find((s) => s.stepIndex === index)
+        if (!stepState || !stepState.isPassed) {
+          await prisma.taskStepState.upsert({
+            where: {
+              sessionId_stepIndex: {
+                sessionId,
+                stepIndex: index,
+              },
+            },
+            update: { isPassed: true },
+            create: {
+              sessionId,
+              stepIndex: index,
+              isPassed: true,
+            },
+          })
+        }
+      }
+    }
+
+    // Reload stepStates after auto-completing theories
+    const updatedSession = await prisma.taskSession.findUnique({
+      where: { id: sessionId },
+      include: { stepStates: true },
+    })
+
+    if (!updatedSession) {
+      return NextResponse.json(
+        { error: "Сессия не найдена" },
+        { status: 404 }
+      )
+    }
+
+    // Verify all steps are passed (theory steps are always considered passed)
+    const allStepsPassed = steps.every((step, index) => {
+      // Theory steps are always passed
+      if (step.type === "theory") return true
+      const stepState = updatedSession.stepStates.find((s) => s.stepIndex === index)
       return stepState?.isPassed
     })
 

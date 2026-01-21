@@ -58,15 +58,15 @@ export function validateStepAnswer(
   step: Step,
   answer: string | number | null
 ): { isValid: boolean; message?: string } {
-  if (!answer && answer !== 0) {
-    return { isValid: false, message: "Ответ не может быть пустым" }
-  }
-
   switch (step.type) {
     case "theory":
+      // Theory steps don't require answers
       return { isValid: true }
 
     case "quiz_single":
+      if (!answer && answer !== 0) {
+        return { isValid: false, message: "Ответ не может быть пустым" }
+      }
       if (typeof answer !== "number") {
         return { isValid: false, message: "Выберите вариант ответа" }
       }
@@ -76,6 +76,9 @@ export function validateStepAnswer(
       return { isValid: false, message: "Неверно, попробуйте ещё" }
 
     case "text_answer":
+      if (!answer && answer !== 0) {
+        return { isValid: false, message: "Ответ не может быть пустым" }
+      }
       if (typeof answer !== "string") {
         return { isValid: false, message: "Введите текстовый ответ" }
       }
@@ -102,6 +105,9 @@ export function validateStepAnswer(
       return { isValid: true }
 
     case "code_answer":
+      if (!answer && answer !== 0) {
+        return { isValid: false, message: "Ответ не может быть пустым" }
+      }
       if (typeof answer !== "string") {
         return { isValid: false, message: "Введите код" }
       }

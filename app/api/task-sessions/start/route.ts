@@ -53,15 +53,50 @@ export async function POST(request: Request) {
 
       const steps = getStepsFromTemplate(template)
       const currentStep = steps[existingSession.currentStepIndex]
+      const currentStepState = existingSession.stepStates.find(
+        (s) => s.stepIndex === existingSession.currentStepIndex
+      )
+
+      // Auto-complete theory step if not already passed
+      if (currentStep.type === "theory" && (!currentStepState || !currentStepState.isPassed)) {
+        await prisma.taskStepState.upsert({
+          where: {
+            sessionId_stepIndex: {
+              sessionId: existingSession.id,
+              stepIndex: existingSession.currentStepIndex,
+            },
+          },
+          update: { isPassed: true },
+          create: {
+            sessionId: existingSession.id,
+            stepIndex: existingSession.currentStepIndex,
+            isPassed: true,
+          },
+        })
+        // Reload stepState after update
+        const updatedStepState = await prisma.taskStepState.findUnique({
+          where: {
+            sessionId_stepIndex: {
+              sessionId: existingSession.id,
+              stepIndex: existingSession.currentStepIndex,
+            },
+          },
+        })
+        return NextResponse.json({
+          sessionId: existingSession.id,
+          currentStepIndex: existingSession.currentStepIndex,
+          totalSteps: steps.length,
+          currentStep,
+          stepState: updatedStepState,
+        })
+      }
 
       return NextResponse.json({
         sessionId: existingSession.id,
         currentStepIndex: existingSession.currentStepIndex,
         totalSteps: steps.length,
         currentStep,
-        stepState: existingSession.stepStates.find(
-          (s) => s.stepIndex === existingSession.currentStepIndex
-        ),
+        stepState: currentStepState,
       })
     }
 
@@ -89,9 +124,9 @@ export async function POST(request: Request) {
         currentStepIndex: 0,
         status: "ACTIVE",
         stepStates: {
-          create: steps.map((_, index) => ({
+          create: steps.map((step, index) => ({
             stepIndex: index,
-            isPassed: false,
+            isPassed: step.type === "theory" ? true : false,
           })),
         },
       },

@@ -47,17 +47,40 @@ export async function POST(
     }
 
     const steps = getStepsFromTemplate(template)
+    const currentStep = steps[session.currentStepIndex]
 
     // Check if current step is passed
     const currentStepState = session.stepStates.find(
       (s) => s.stepIndex === session.currentStepIndex
     )
 
-    if (!currentStepState || !currentStepState.isPassed) {
-      return NextResponse.json(
-        { error: "Текущий шаг не завершён" },
-        { status: 400 }
-      )
+    // Theory steps are always considered passed
+    if (currentStep.type === "theory") {
+      // Auto-complete theory step if not already passed
+      if (!currentStepState || !currentStepState.isPassed) {
+        await prisma.taskStepState.upsert({
+          where: {
+            sessionId_stepIndex: {
+              sessionId,
+              stepIndex: session.currentStepIndex,
+            },
+          },
+          update: { isPassed: true },
+          create: {
+            sessionId,
+            stepIndex: session.currentStepIndex,
+            isPassed: true,
+          },
+        })
+      }
+    } else {
+      // For non-theory steps, check if passed
+      if (!currentStepState || !currentStepState.isPassed) {
+        return NextResponse.json(
+          { error: "Текущий шаг не завершён" },
+          { status: 400 }
+        )
+      }
     }
 
     // Move to next step

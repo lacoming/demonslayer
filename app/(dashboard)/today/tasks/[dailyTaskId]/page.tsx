@@ -41,6 +41,36 @@ export default function TaskPage() {
     loadSession()
   }, [dailyTaskId])
 
+  // Auto-complete theory steps when loaded
+  useEffect(() => {
+    if (
+      currentStep &&
+      currentStep.type === "theory" &&
+      sessionId &&
+      (!stepState || !stepState.isPassed)
+    ) {
+      // Auto-complete theory step by submitting empty answer (theory always validates as true)
+      fetch(`/api/task-sessions/${sessionId}/answer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answer: null }),
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json()
+          }
+        })
+        .then((data) => {
+          if (data?.stepState) {
+            setStepState(data.stepState)
+          }
+        })
+        .catch((error) => {
+          console.error("Error auto-completing theory step:", error)
+        })
+    }
+  }, [currentStep, sessionId, stepState])
+
   async function loadSession() {
     try {
       // Try to get existing session or start new one

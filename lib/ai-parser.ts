@@ -72,10 +72,14 @@ function extractJSON(text: string): string | null {
  * Парсит JSON ответ от AI с множественными стратегиями fallback
  */
 export function parseAIJSONResponse<T = any>(response: string): T {
+  // Логируем raw response при первой ошибке парсинга
+  let firstError: any = null
+
   // Strategy 1: Прямой парсинг
   try {
     return JSON.parse(response.trim())
   } catch (e) {
+    firstError = e
     // Strategy 2: Удаление markdown блоков и лишнего текста
     try {
       let cleaned = response
@@ -101,6 +105,10 @@ export function parseAIJSONResponse<T = any>(response: string): T {
           throw new Error("No JSON object found")
         }
       } catch (e3) {
+        // Логируем raw response при первой серьезной ошибке
+        if (!firstError) {
+          console.error("AI PARSER: First parse error, raw response (first 2000 chars):", response.substring(0, 2000))
+        }
         // Strategy 4: Попытка исправить распространенные проблемы
         try {
           let fixed = response
@@ -153,7 +161,7 @@ export function parseAIJSONResponse<T = any>(response: string): T {
             // Все стратегии провалились - логируем для отладки
             console.error("All parsing strategies failed:")
             console.error("Raw response length:", response.length)
-            console.error("Raw response (first 1000 chars):", response.substring(0, 1000))
+            console.error("Raw response (first 2000 chars):", response.substring(0, 2000))
             console.error("Raw response (last 500 chars):", response.substring(Math.max(0, response.length - 500)))
             console.error("Parse errors:", { e, e2, e3, e4, e5 })
 

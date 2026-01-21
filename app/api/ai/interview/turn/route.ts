@@ -75,11 +75,34 @@ export async function POST(request: Request) {
     }
 
     // Call OpenRouter и парсим ответ
-    const response = await chatCompletion({
-      messages,
-      maxTokens: 450,
-      temperature: 0.3,
-    })
+    let response: string
+    try {
+      response = await chatCompletion({
+        messages,
+        maxTokens: 1200,
+        temperature: 0.3,
+        reasoning: { effort: "minimal" },
+      })
+    } catch (error) {
+      // Проверяем на пустой content после retries
+      if (
+        error instanceof Error &&
+        error.message.includes("пустой content")
+      ) {
+        // Извлекаем debug информацию из сообщения об ошибке
+        const debugMatch = error.message.match(/DEBUG=({.*})/)
+        const debug = debugMatch ? JSON.parse(debugMatch[1]) : null
+        return NextResponse.json(
+          {
+            error: "Модель не успела вывести финальный ответ (пустой content)",
+            debug: debug || { finish_reason: "length" },
+          },
+          { status: 502 }
+        )
+      }
+      // Пробрасываем другие ошибки дальше
+      throw error
+    }
 
     // Parse JSON response using robust parser
     let interviewResponse: InterviewResponse
@@ -121,6 +144,18 @@ export async function POST(request: Request) {
         return NextResponse.json(
           { error: "Лимит/ошибка AI, попробуйте позже" },
           { status: 429 }
+        )
+      }
+      // Проверяем на пустой content
+      if (error.message.includes("пустой content")) {
+        const debugMatch = error.message.match(/DEBUG=({.*})/)
+        const debug = debugMatch ? JSON.parse(debugMatch[1]) : null
+        return NextResponse.json(
+          {
+            error: "Модель не успела вывести финальный ответ (пустой content)",
+            debug: debug || { finish_reason: "length" },
+          },
+          { status: 502 }
         )
       }
       return NextResponse.json(
