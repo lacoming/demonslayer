@@ -5,7 +5,8 @@ export type StepType = "theory" | "quiz_single" | "text_answer" | "code_answer"
 export interface Step {
   type: StepType
   title: string
-  content?: string
+  content?: string // Fallback для старых задач, если theoryRef не указан
+  theoryRef?: string // Ссылка на markdown-файл теории (например, "js-core/event-loop")
   question?: string
   options?: string[]
   correctAnswer?: number
@@ -30,7 +31,8 @@ export function generateStepsFromPrompt(
   prompt: string,
   type: string
 ): Step[] {
-  // Default: 2 steps for backward compatibility
+  // Генерируем шаги из промпта
+  // Поддерживаем любое количество шагов (3-8 для новых задач)
   return [
     {
       type: "theory",
