@@ -618,6 +618,47 @@
   "title": "TTFB (Time To First Byte)",
   "description": "Время от отправки запроса до получения первого байта ответа от сервера.",
   "aliases": []
+},
+
+"event propagation": {
+  "title": "Event Propagation",
+  "description": "Механизм распространения DOM-событий через фазы capturing, target и bubbling.",
+  "aliases": []
+},
+"capturing": {
+  "title": "Capturing phase",
+  "description": "Фаза события, при которой оно распространяется сверху вниз по DOM-дереву (от window к target).",
+  "aliases": ["погружение"]
+},
+"bubbling": {
+  "title": "Bubbling phase",
+  "description": "Фаза события, при которой оно всплывает снизу вверх по DOM-дереву (от target к window).",
+  "aliases": ["всплытие"]
+},
+"event delegation": {
+  "title": "Event Delegation",
+  "description": "Техника обработки событий, при которой один обработчик на родителе обрабатывает события от дочерних элементов.",
+  "aliases": ["делегирование событий"]
+},
+"event.target": {
+  "title": "event.target",
+  "description": "Элемент, на котором событие произошло фактически.",
+  "aliases": []
+},
+"event.currenttarget": {
+  "title": "event.currentTarget",
+  "description": "Элемент, на котором зарегистрирован обработчик события.",
+  "aliases": []
+},
+"stoppropagation": {
+  "title": "stopPropagation",
+  "description": "Метод события, останавливающий дальнейшее распространение события по DOM.",
+  "aliases": []
+},
+"preventdefault": {
+  "title": "preventDefault",
+  "description": "Метод события, отменяющий стандартное поведение браузера, не влияя на распространение события.",
+  "aliases": []
 }
 
 

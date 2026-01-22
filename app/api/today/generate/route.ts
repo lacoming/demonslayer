@@ -2,9 +2,10 @@ import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { generateDailyPlan, getTodayDateString } from "@/lib/game"
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
     const today = getTodayDateString()
+    const { force } = await request.json().catch(() => ({})) // Allow force regeneration
 
     const progress = await prisma.progress.findUnique({
       where: { userId: 1 },
@@ -15,6 +16,21 @@ export async function POST() {
         { error: "Прогресс не найден" },
         { status: 404 }
       )
+    }
+
+    // If force=true, delete existing plan first
+    if (force) {
+      const existingPlan = await prisma.dailyPlan.findUnique({
+        where: { date: today },
+        include: { tasks: true },
+      })
+
+      if (existingPlan) {
+        // Delete plan (tasks will be deleted via cascade)
+        await prisma.dailyPlan.delete({
+          where: { date: today },
+        })
+      }
     }
 
     const plan = await generateDailyPlan(

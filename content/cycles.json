@@ -9,7 +9,7 @@
     "code": 1,
     "title": "JavaScript Core",
     "description": "Фундаментальные концепции и внутреннее устройство JavaScript",
-    "themes": ["Scope/hoisting/TDZ", "this binding", "Замыкания", "Event loop", "Promises", "Сборка мусора", "Клонирование объектов", "Map/Set", "Observers", "AbortController", "reduce()", "Каррирование"]
+    "themes": ["Scope/hoisting/TDZ", "this binding", "Замыкания", "Event loop", "Promises", "async/await", "Прототипы", "this/bind/call/apply", "AbortController", "Методы массивов и reduce", "Клонирование объектов", "Map/Set/WeakMap/WeakSet", "Observers", "rAF/rIC", "Рекурсия", "Каррирование", "Сборка мусора"]
   },
   {
     "code": 2,
@@ -45,7 +45,7 @@
     "code": 7,
     "title": "Performance",
     "description": "Оптимизация производительности веб-приложений",
-    "themes": ["FCP/LCP/CLS", "Lighthouse", "DevTools", "Code splitting/lazy loading", "Стоимость гидратации"]
+    "themes": ["Rendering Pipeline", "Layout/Paint/Composite", "Critical Rendering Path", "Метрики производительности (FCP/LCP/CLS/TTI)", "Инструменты производительности (DevTools/Lighthouse)", "Event Propagation", "Code splitting/lazy loading", "Стоимость гидратации"]
   },
   {
     "code": 8,

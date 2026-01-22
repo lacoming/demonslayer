@@ -102,7 +102,7 @@ export default async function TodayPage() {
               Выполните ежедневный план, чтобы сохранить серию
             </p>
           </div>
-          {!plan && <GeneratePlanButton />}
+          <GeneratePlanButton />
         </div>
 
         {plan ? (

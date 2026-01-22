@@ -1,16 +1,16 @@
 [
   {
-    "id": "knowledge-1",
+    "id": "knowledge-js-core-scopes-closures",
     "type": "KNOWLEDGE",
     "cycleCode": 1,
     "topicTitle": "Замыкания",
-    "title": "Изучить замыкания JavaScript",
+    "title": "Изучить: Замыкания",
     "prompt": "Прочитайте о замыканиях, лексической области видимости и типичных случаях использования. Напишите резюме о том, как работают замыкания и когда они полезны.",
-    "xp": 20,
+    "xp": 25,
     "steps": [
       {
         "type": "theory",
-        "title": "Что такое замыкания",
+        "title": "Теория",
         "theoryRef": "js-core/scopes-closures"
       },
       {
@@ -19,6 +19,1137 @@
         "question": "Напишите краткое объяснение того, как работают замыкания и когда они полезны (минимум 80 символов)",
         "minChars": 80,
         "keywords": ["замыкание", "область видимости", "функция", "переменная"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-event-loop",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Event Loop",
+    "title": "Изучить: Event Loop",
+    "prompt": "Изучите механизм Event Loop в JavaScript: стек вызовов, очереди микрозадач и макрозадач, порядок выполнения асинхронного кода.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/event-loop"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, как работает Event Loop и в каком порядке выполняются синхронный код, микрозадачи и макрозадачи (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["event loop", "микрозадачи", "макрозадачи", "стек", "очередь"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-promises",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Promises",
+    "title": "Изучить: Promises",
+    "prompt": "Изучите Promise в JavaScript: состояния, цепочки then/catch, обработка ошибок, методы Promise.all, Promise.race и другие.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/promises"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, что такое Promise, как работают цепочки then/catch и когда использовать Promise.all (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["promise", "then", "catch", "асинхронность", "ошибки"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-async-await",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "async/await",
+    "title": "Изучить: async/await",
+    "prompt": "Изучите синтаксис async/await: как он работает поверх Promise, обработка ошибок через try/catch, параллельное выполнение.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/async-await"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, как работает async/await и чем он отличается от Promise с then/catch (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["async", "await", "promise", "try", "catch"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-prototypes",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Прототипы",
+    "title": "Изучить: Прототипы",
+    "prompt": "Изучите прототипное наследование в JavaScript: цепочку прототипов, внутренний слот [[Prototype]], методы Object.getPrototypeOf и различия между __proto__ и prototype.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/prototypes"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, как работает прототипное наследование и что такое цепочка прототипов (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["прототип", "наследование", "prototype", "цепочка"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-this-bind-call-apply",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "this/bind/call/apply",
+    "title": "Изучить: this/bind/call/apply",
+    "prompt": "Изучите контекст выполнения this в JavaScript, методы bind, call и apply для явной привязки контекста, различия между ними.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/this-bind-call-apply"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, как работает this в JavaScript и чем отличаются bind, call и apply (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["this", "bind", "call", "apply", "контекст"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-abort-controller",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "AbortController",
+    "title": "Изучить: AbortController",
+    "prompt": "Изучите AbortController для отмены асинхронных операций: отмена fetch-запросов, предотвращение утечек памяти и гонок состояний.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/abort-controller"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, зачем нужен AbortController и как его использовать для отмены запросов (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["abort", "controller", "отмена", "fetch", "запрос"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-methods-reduce",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Методы массивов и reduce",
+    "title": "Изучить: Методы массивов и reduce",
+    "prompt": "Изучите методы массивов: разницу между мутирующими и немутирующими методами, работу reduce и паттерн аккумулятора.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/methods-reduce"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните разницу между мутирующими и немутирующими методами массивов и как работает reduce (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["массив", "мутация", "reduce", "аккумулятор", "иммутабельность"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-object-cloning",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Клонирование объектов",
+    "title": "Изучить: Клонирование объектов",
+    "prompt": "Изучите различные способы клонирования объектов: поверхностное и глубокое копирование, ограничения разных методов, когда использовать каждый.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/object-cloning"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните разницу между поверхностным и глубоким клонированием объектов и когда использовать каждый способ (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["клонирование", "shallow", "deep", "копирование", "объект"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-map-set",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Map/Set/WeakMap/WeakSet",
+    "title": "Изучить: Map/Set/WeakMap/WeakSet",
+    "prompt": "Изучите структуры данных Map, Set, WeakMap и WeakSet: их преимущества перед Object/Array, случаи использования, слабые ссылки.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/map-set"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, когда использовать Map вместо Object, Set вместо Array, и зачем нужны WeakMap/WeakSet (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["map", "set", "weakmap", "weakset", "структура данных"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-observers",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Observers",
+    "title": "Изучить: Observers",
+    "prompt": "Изучите Observer API браузера: IntersectionObserver, ResizeObserver, MutationObserver, их преимущества перед традиционными обработчиками событий.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/observers"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, зачем нужны Observer API и какие преимущества они дают по сравнению с традиционными обработчиками (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["observer", "intersection", "resize", "mutation", "производительность"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-raf-ric",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "rAF/rIC",
+    "title": "Изучить: rAF/rIC",
+    "prompt": "Изучите requestAnimationFrame и requestIdleCallback: когда использовать каждый API, оптимизация анимаций и фоновых задач.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/raf-ric"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, зачем нужны requestAnimationFrame и requestIdleCallback и когда использовать каждый (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["raf", "ric", "анимация", "производительность", "браузер"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-recursion",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Рекурсия",
+    "title": "Изучить: Рекурсия",
+    "prompt": "Изучите рекурсию в JavaScript: базовые случаи, риски переполнения стека, оптимизация хвостовых вызовов, когда рекурсия уместна.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/recursion"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, что такое рекурсия, какие у неё риски и когда её стоит использовать (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["рекурсия", "стек", "базовый случай", "переполнение"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-js-core-currying",
+    "type": "KNOWLEDGE",
+    "cycleCode": 1,
+    "topicTitle": "Каррирование",
+    "title": "Изучить: Каррирование",
+    "prompt": "Изучите каррирование в JavaScript: частичное применение функций, композиция, переиспользование кода, функциональное программирование.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "js-core/currying"
+      },
+      {
+        "type": "text_answer",
+        "title": "Объясните своими словами",
+        "question": "Объясните, что такое каррирование и как оно помогает в функциональном программировании (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["каррирование", "частичное применение", "композиция", "функция"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-browser-rendering",
+    "type": "KNOWLEDGE",
+    "cycleCode": 7,
+    "topicTitle": "Rendering Pipeline",
+    "title": "Изучить: Rendering Pipeline",
+    "prompt": "Изучите конвейер рендеринга браузера: парсинг HTML/CSS, построение DOM и CSSOM, создание Render Tree, этапы layout, paint и compositing.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "browser/rendering"
+      },
+      {
+        "type": "text_answer",
+        "title": "Краткий конспект",
+        "question": "Опишите основные этапы конвейера рендеринга браузера (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["рендеринг", "dom", "cssom", "layout", "paint"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-browser-layout-paint-composite",
+    "type": "KNOWLEDGE",
+    "cycleCode": 7,
+    "topicTitle": "Layout/Paint/Composite",
+    "title": "Изучить: Layout/Paint/Composite",
+    "prompt": "Изучите этапы layout (reflow), paint и compositing: какие CSS-свойства вызывают каждый этап, как оптимизировать производительность.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "browser/layout-paint-composite"
+      },
+      {
+        "type": "text_answer",
+        "title": "Краткий конспект",
+        "question": "Объясните разницу между layout, paint и composite, и какие изменения вызывают каждый этап (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["layout", "paint", "composite", "reflow", "repaint"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-browser-critical-rendering-path",
+    "type": "KNOWLEDGE",
+    "cycleCode": 7,
+    "topicTitle": "Critical Rendering Path",
+    "title": "Изучить: Critical Rendering Path",
+    "prompt": "Изучите Critical Rendering Path: цепочку шагов, которые браузер выполняет для отображения первого контента, оптимизация FCP и LCP.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "browser/critical-rendering-path"
+      },
+      {
+        "type": "text_answer",
+        "title": "Краткий конспект",
+        "question": "Опишите основные этапы Critical Rendering Path и как их оптимизировать (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["crp", "fcp", "lcp", "оптимизация", "рендеринг"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-browser-performance-metrics",
+    "type": "KNOWLEDGE",
+    "cycleCode": 7,
+    "topicTitle": "Метрики производительности",
+    "title": "Изучить: Метрики производительности",
+    "prompt": "Изучите метрики производительности: FCP, LCP, CLS, TTI, как их измерять и что они означают для пользовательского опыта.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "browser/performance-metrics"
+      },
+      {
+        "type": "text_answer",
+        "title": "Краткий конспект",
+        "question": "Объясните основные метрики производительности (FCP, LCP, CLS) и что они измеряют (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["fcp", "lcp", "cls", "tti", "метрики"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-browser-performance-tools",
+    "type": "KNOWLEDGE",
+    "cycleCode": 7,
+    "topicTitle": "Инструменты производительности",
+    "title": "Изучить: Инструменты производительности",
+    "prompt": "Изучите инструменты анализа производительности: DevTools Performance, Lighthouse, как измерять и оптимизировать производительность веб-приложений.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "browser/performance-tools"
+      },
+      {
+        "type": "text_answer",
+        "title": "Краткий конспект",
+        "question": "Опишите основные инструменты для анализа производительности и как их использовать (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["devtools", "lighthouse", "performance", "профилирование"]
+      }
+    ]
+  },
+  {
+    "id": "knowledge-browser-event-propagation",
+    "type": "KNOWLEDGE",
+    "cycleCode": 7,
+    "topicTitle": "Event Propagation",
+    "title": "Изучить: Event Propagation",
+    "prompt": "Изучите механизм распространения событий: фазы capture, target и bubble, делегирование событий, stopPropagation и preventDefault.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "theory",
+        "title": "Теория",
+        "theoryRef": "browser/event-propagation"
+      },
+      {
+        "type": "text_answer",
+        "title": "Краткий конспект",
+        "question": "Объясните фазы распространения событий (capture, target, bubble) и зачем нужно делегирование (минимум 80 символов)",
+        "minChars": 80,
+        "keywords": ["события", "capture", "bubble", "делегирование", "propagation"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-1",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Мутирующие и немутирующие методы массивов",
+    "prompt": "Объясните разницу между мутирующими и немутирующими методами массивов. Приведите примеры.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните разницу между мутирующими и немутирующими методами массивов. Приведите примеры.",
+        "minChars": 120,
+        "keywords": ["мутирующие", "немутирующие", "push", "map", "filter", "reduce", "иммутабельность"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-2",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Прототипы и [[Prototype]]",
+    "prompt": "Что такое прототипы и внутренние слоты вроде [[Prototype]]?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Что такое прототипы и внутренние слоты вроде [[Prototype]]?",
+        "minChars": 120,
+        "keywords": ["прототип", "prototype", "цепочка", "наследование", "getPrototypeOf"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-3",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Promise и async/await",
+    "prompt": "Сравните Promise и async/await. Когда бы вы использовали методы Promise вроде Promise.all?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Сравните Promise и async/await. Когда бы вы использовали методы Promise вроде Promise.all?",
+        "minChars": 120,
+        "keywords": ["promise", "async", "await", "Promise.all", "ошибки"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-4",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: this и bind/call/apply",
+    "prompt": "Объясните контекст выполнения, привязку this и bind/call/apply.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните контекст выполнения, привязку this и bind/call/apply.",
+        "minChars": 120,
+        "keywords": ["this", "bind", "call", "apply", "контекст", "стрелочные функции"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-5",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Замыкания",
+    "prompt": "Что такое замыкания и как они работают?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Что такое замыкания и как они работают?",
+        "minChars": 120,
+        "keywords": ["замыкание", "область видимости", "функция", "лексическая"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-6",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Сборка мусора и достижимость",
+    "prompt": "Объясните сборку мусора и достижимость.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните сборку мусора и достижимость.",
+        "minChars": 120,
+        "keywords": ["сборка мусора", "достижимость", "mark-and-sweep", "утечки памяти"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-7",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Рекурсия и её риски",
+    "prompt": "Каковы риски рекурсии и когда её следует избегать?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Каковы риски рекурсии и когда её следует избегать?",
+        "minChars": 120,
+        "keywords": ["рекурсия", "стек", "переполнение", "хвостовые вызовы", "итерация"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-8",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Распространение событий",
+    "prompt": "Объясните распространение событий, делегирование и как они работают.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните распространение событий, делегирование и как они работают.",
+        "minChars": 120,
+        "keywords": ["события", "capture", "bubble", "делегирование", "stopPropagation"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-9",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Клонирование объектов",
+    "prompt": "Сравните различные подходы к клонированию объектов: поверхностное vs глубокое.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Сравните различные подходы к клонированию объектов: поверхностное vs глубокое.",
+        "minChars": 120,
+        "keywords": ["клонирование", "shallow", "deep", "Object.assign", "spread", "structured cloning"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-10",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Операторы || и ??",
+    "prompt": "В чём разница между операторами || и ???",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "В чём разница между операторами || и ???",
+        "minChars": 120,
+        "keywords": ["||", "??", "truthy", "nullish", "falsy"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-11",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Генераторы и AbortController",
+    "prompt": "Объясните генераторы и AbortController.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните генераторы и AbortController.",
+        "minChars": 120,
+        "keywords": ["генератор", "yield", "abortcontroller", "отмена", "fetch"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-12",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: reduce и Map/Set",
+    "prompt": "Как работает reduce()? Сравните Map vs Object, WeakMap/WeakSet.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Как работает reduce()? Сравните Map vs Object, WeakMap/WeakSet.",
+        "minChars": 120,
+        "keywords": ["reduce", "аккумулятор", "map", "set", "weakmap", "weakset"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-13",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Event Loop и очереди",
+    "prompt": "Объясните очереди event loop: микро- vs макро-задачи.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните очереди event loop: микро- vs макро-задачи.",
+        "minChars": 120,
+        "keywords": ["event loop", "микрозадачи", "макрозадачи", "promise", "setTimeout"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-14",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: rAF и rIC",
+    "prompt": "Что такое requestAnimationFrame и requestIdleCallback?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Что такое requestAnimationFrame и requestIdleCallback?",
+        "minChars": 120,
+        "keywords": ["raf", "ric", "анимация", "производительность", "браузер"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-15",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: IntersectionObserver и ResizeObserver",
+    "prompt": "Объясните IntersectionObserver и ResizeObserver.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните IntersectionObserver и ResizeObserver.",
+        "minChars": 120,
+        "keywords": ["intersectionobserver", "resizeobserver", "видимость", "размер", "производительность"]
+      }
+    ]
+  },
+  {
+    "id": "interview-1-16",
+    "type": "INTERVIEW",
+    "cycleCode": 1,
+    "title": "Интервью: Каррирование",
+    "prompt": "Что такое каррирование и как оно полезно?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Что такое каррирование и как оно полезно?",
+        "minChars": 120,
+        "keywords": ["каррирование", "частичное применение", "композиция", "функциональное программирование"]
+      }
+    ]
+  },
+  {
+    "id": "interview-7-1",
+    "type": "INTERVIEW",
+    "cycleCode": 7,
+    "title": "Интервью: Rendering Pipeline",
+    "prompt": "Опишите конвейер рендеринга браузера: от парсинга HTML до отображения на экране.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Опишите конвейер рендеринга браузера: от парсинга HTML до отображения на экране.",
+        "minChars": 120,
+        "keywords": ["рендеринг", "dom", "cssom", "render tree", "layout", "paint"]
+      }
+    ]
+  },
+  {
+    "id": "interview-7-2",
+    "type": "INTERVIEW",
+    "cycleCode": 7,
+    "title": "Интервью: Layout/Paint/Composite",
+    "prompt": "Объясните этапы layout, paint и composite. Какие CSS-свойства вызывают каждый этап?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните этапы layout, paint и composite. Какие CSS-свойства вызывают каждый этап?",
+        "minChars": 120,
+        "keywords": ["layout", "paint", "composite", "reflow", "repaint", "transform"]
+      }
+    ]
+  },
+  {
+    "id": "interview-7-3",
+    "type": "INTERVIEW",
+    "cycleCode": 7,
+    "title": "Интервью: Critical Rendering Path",
+    "prompt": "Что такое Critical Rendering Path и как его оптимизировать?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Что такое Critical Rendering Path и как его оптимизировать?",
+        "minChars": 120,
+        "keywords": ["crp", "fcp", "lcp", "оптимизация", "блокирующие ресурсы"]
+      }
+    ]
+  },
+  {
+    "id": "interview-7-4",
+    "type": "INTERVIEW",
+    "cycleCode": 7,
+    "title": "Интервью: Метрики производительности",
+    "prompt": "Какие метрики производительности вы знаете и что они измеряют?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Какие метрики производительности вы знаете и что они измеряют?",
+        "minChars": 120,
+        "keywords": ["fcp", "lcp", "cls", "tti", "метрики", "web vitals"]
+      }
+    ]
+  },
+  {
+    "id": "interview-7-5",
+    "type": "INTERVIEW",
+    "cycleCode": 7,
+    "title": "Интервью: Инструменты производительности",
+    "prompt": "Какие инструменты вы используете для анализа производительности веб-приложений?",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Какие инструменты вы используете для анализа производительности веб-приложений?",
+        "minChars": 120,
+        "keywords": ["devtools", "lighthouse", "performance", "профилирование", "web vitals"]
+      }
+    ]
+  },
+  {
+    "id": "interview-7-6",
+    "type": "INTERVIEW",
+    "cycleCode": 7,
+    "title": "Интервью: Event Propagation",
+    "prompt": "Объясните механизм распространения событий в браузере: фазы capture, target и bubble.",
+    "xp": 30,
+    "steps": [
+      {
+        "type": "text_answer",
+        "title": "Ответ (как на собеседовании)",
+        "question": "Объясните механизм распространения событий в браузере: фазы capture, target и bubble.",
+        "minChars": 120,
+        "keywords": ["события", "capture", "bubble", "target", "делегирование", "stopPropagation"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-1",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: setTimeout и порядок выполнения",
+    "prompt": "Напишите код, который демонстрирует порядок выполнения setTimeout, Promise и синхронного кода.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который демонстрирует порядок выполнения setTimeout, Promise и синхронного кода.",
+        "requiredTokens": ["setTimeout", "Promise.resolve", "console.log"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-2",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: queueMicrotask",
+    "prompt": "Напишите код, который использует queueMicrotask для выполнения задачи в очереди микрозадач.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует queueMicrotask для выполнения задачи в очереди микрозадач.",
+        "requiredTokens": ["queueMicrotask"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-3",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: map, filter, reduce",
+    "prompt": "Напишите код, который использует map, filter и reduce для обработки массива чисел.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует map, filter и reduce для обработки массива чисел.",
+        "requiredTokens": ["map", "filter", "reduce"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-4",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: async/await",
+    "prompt": "Напишите асинхронную функцию с использованием async/await для обработки нескольких промисов.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите асинхронную функцию с использованием async/await для обработки нескольких промисов.",
+        "requiredTokens": ["async", "await", "Promise"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-5",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: Promise.all",
+    "prompt": "Напишите код, который использует Promise.all для параллельного выполнения нескольких асинхронных операций.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует Promise.all для параллельного выполнения нескольких асинхронных операций.",
+        "requiredTokens": ["Promise.all"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-6",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: Обработка ошибок в Promise",
+    "prompt": "Напишите код с Promise, который корректно обрабатывает ошибки через catch и finally.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код с Promise, который корректно обрабатывает ошибки через catch и finally.",
+        "requiredTokens": ["Promise", "catch", "finally"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-7",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: Замыкания",
+    "prompt": "Напишите код, который демонстрирует работу замыканий: функция, которая запоминает переменные из внешней области видимости.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который демонстрирует работу замыканий: функция, которая запоминает переменные из внешней области видимости.",
+        "requiredTokens": ["function"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-8",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: this и bind",
+    "prompt": "Напишите код, который демонстрирует работу this и использование bind для привязки контекста.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который демонстрирует работу this и использование bind для привязки контекста.",
+        "requiredTokens": ["this", "bind"]
+      }
+    ]
+  },
+  {
+    "id": "drill-js-9",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: Деструктуризация и spread",
+    "prompt": "Напишите код, который использует деструктуризацию массивов и объектов, а также оператор spread.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует деструктуризацию массивов и объектов, а также оператор spread.",
+        "requiredTokens": []
+      }
+    ]
+  },
+  {
+    "id": "drill-js-10",
+    "type": "DRILL_JS",
+    "cycleCode": null,
+    "title": "Практика: Map и Set",
+    "prompt": "Напишите код, который использует Map и Set для работы с коллекциями данных.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует Map и Set для работы с коллекциями данных.",
+        "requiredTokens": ["Map", "Set"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-1",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: interface и type",
+    "prompt": "Напишите код, который определяет типы с помощью interface и type, показывая различия между ними.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который определяет типы с помощью interface и type, показывая различия между ними.",
+        "requiredTokens": ["interface", "type"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-2",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: Generics",
+    "prompt": "Напишите код с использованием generics для создания переиспользуемой функции или типа.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код с использованием generics для создания переиспользуемой функции или типа.",
+        "requiredTokens": ["generics", "<T>"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-3",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: keyof и typeof",
+    "prompt": "Напишите код, который использует keyof и typeof для работы с типами.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует keyof и typeof для работы с типами.",
+        "requiredTokens": ["keyof", "typeof"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-4",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: Utility types (Partial, Pick, Omit)",
+    "prompt": "Напишите код, который использует utility types: Partial, Pick и Omit для модификации типов.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует utility types: Partial, Pick и Omit для модификации типов.",
+        "requiredTokens": ["Partial", "Pick", "Omit"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-5",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: extends в generics",
+    "prompt": "Напишите код с generics, который использует extends для ограничения типов.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код с generics, который использует extends для ограничения типов.",
+        "requiredTokens": ["extends"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-6",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: any, unknown, never",
+    "prompt": "Напишите код, который демонстрирует использование типов any, unknown и never, показывая различия между ними.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который демонстрирует использование типов any, unknown и never, показывая различия между ними.",
+        "requiredTokens": ["any", "unknown", "never"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-7",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: Union и Intersection типы",
+    "prompt": "Напишите код, который использует union (|) и intersection (&) типы для комбинирования типов.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует union (|) и intersection (&) типы для комбинирования типов.",
+        "requiredTokens": []
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-8",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: Conditional types",
+    "prompt": "Напишите код с использованием conditional types для создания условных типов.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код с использованием conditional types для создания условных типов.",
+        "requiredTokens": ["extends", "?"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-9",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: Mapped types",
+    "prompt": "Напишите код, который использует mapped types для преобразования свойств типа.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует mapped types для преобразования свойств типа.",
+        "requiredTokens": ["keyof", "in"]
+      }
+    ]
+  },
+  {
+    "id": "drill-ts-10",
+    "type": "DRILL_TS",
+    "cycleCode": null,
+    "title": "Практика: Template literal types",
+    "prompt": "Напишите код, который использует template literal types для создания строковых типов.",
+    "xp": 25,
+    "steps": [
+      {
+        "type": "code_answer",
+        "title": "Напишите код",
+        "question": "Напишите код, который использует template literal types для создания строковых типов.",
+        "requiredTokens": []
       }
     ]
   }

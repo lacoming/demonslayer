@@ -14,6 +14,8 @@ export function GeneratePlanButton() {
     try {
       const res = await fetch("/api/today/generate", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ force: true }), // Force regeneration
       })
 
       if (!res.ok) {
@@ -32,7 +34,7 @@ export function GeneratePlanButton() {
 
   return (
     <Button variant="breath" onClick={handleGenerate} disabled={loading}>
-      {loading ? "Создание..." : "Создать план на сегодня"}
+      {loading ? "Создание..." : "Создать/обновить план на сегодня"}
     </Button>
   )
 }
